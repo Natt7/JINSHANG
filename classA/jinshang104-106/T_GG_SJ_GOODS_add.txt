@@ -1,0 +1,49 @@
+create job T_GG_SJ_GOODS_add_job(2)
+begin
+dataproc select T_GG_SJ_GOODS_select
+(
+	 fields: 
+	 (
+		 (fname:"kindname"),
+		 (fname:"netweight"),
+		 (fname:"firstindate"),
+		 (fname:"deptid"),
+		 (fname:"goodsstateno"),
+		 (fname:"ownerid")
+	 ),
+	inputs: "T_GG_SJ_GOODS_dataset",
+	order_by:("deptid","ownerid"),
+	cache:true
+);
+
+dataproc select T_OWNER_cache_select
+(
+	 fields: 
+	 (
+		 (fname:"deptid_a"),
+		 (fname:"owner_id"),
+		 (fname:"seg_no")			 
+	 ),
+	inputs: "T_OWNER_select.output.cache",
+	order_by:("deptid_a","owner_id")
+);
+
+dataproc join T_GG_SJ_GOODS_join_T_OWNER
+(
+     inputs: (
+                left_input:  "T_GG_SJ_GOODS_select", 
+                right_input: "T_OWNER_cache_select"
+             ),
+     join_keys: (
+                 ("left_input.deptid", "right_input.deptid_a"),
+				 ("left_input.ownerid", "right_input.owner_id")
+                )
+);
+
+dataproc statistics T_GG_SJ_GOODS_T_OWNER_statistics
+(
+  inputs:T_GG_SJ_GOODS_join_T_OWNER,
+  table:t_gg_sj_goods_t_owner
+);	
+end;
+run job T_GG_SJ_GOODS_add_job (threads:1);

@@ -1,0 +1,77 @@
+create job jinshang_93_t_his_t_stacking_d_add(T_CHART_DETAILSTORAGE)
+begin
+
+dataset file t_his_t_stacking_d_dataset
+(
+  filename:/home/natt/datajinshang/t_his_t_stacking_d.csv,
+  serverid:0,
+  schema:T_HIS_T_STACKING_D_schema,
+  charset:utf-8,
+  splitter:(block_size:10000000)
+);
+
+dataproc select t_his_t_stacking_d_select
+(
+fields: [ 
+(fname:"stacking_rec_num",type:string,alias:"stacking_rec_numtd"),
+(fname:"pack_num",type:string),
+(fname:"weight_active",type:double)
+],
+inputs: "t_his_t_stacking_d_dataset",
+order_by:("stacking_rec_numtd"),
+cache:"true"
+);
+
+dataproc join t_td_join
+(
+inputs: (left_input: t_his_t_stacking_m_select, right_input: t_his_t_stacking_d_select),
+join_keys: [("left_input.stacking_rec_num","right_input.stacking_rec_numtd")]
+);
+
+dataproc select t_td_join_select
+(
+fields: [ 
+(fname:"time_receive",type:datetime),
+(fname:"order_num",type:string),
+(fname:"seg_not",type:string),
+(fname:"pack_num",type:string),
+(fname:"weight_active",type:double)
+],
+inputs: "t_td_join",
+order_by:("order_num","seg_not","pack_num"),
+cache:"true"
+);
+
+dataproc join t_td_m_md_join
+(
+inputs: (left_input: t_td_join_select, right_input: m_md_join_select),
+join_keys: [("left_input.order_num","right_input.order_numm"),("left_input.seg_not","right_input.seg_nom"),("left_input.pack_num","right_input.pack_nummd")]
+);
+
+
+dataproc statistics stat1
+(
+  stat_model: "t_td_m_md_stat",
+  table : "t_td_m_md_table",
+  inputs : "t_td_m_md_join"
+);
+
+dataproc index ind1
+(
+  inputs:t_td_m_md_join,
+  table:t_td_m_md_table,
+  indexes:(t_td_m_md_index)
+);
+
+
+dataproc doc doc1
+(
+ inputs:"t_td_m_md_join",
+ table:"t_td_m_md_table",
+ format:"t_td_m_md_parser",
+ fields:["time_receive","order_num","seg_not","pack_num","weight_active","provider_name"]
+ );
+
+
+end;
+run job jinshang_93_t_his_t_stacking_d_add(threads:1);

@@ -1,0 +1,56 @@
+CREATE DATABASE db;
+USE db;
+
+create schema T_GU_GUB_schema
+source type CSV
+fields(
+"gubillid"             type str,
+ "deptid"               type str,
+ "ownerid"              type str,
+ "lenderid"             type str,
+ "gutype"               type str,
+ "sysbillid"            type str,
+ "extbillid"            type str,
+ "preenddate"           type DATETIME,
+ "gubillstate"          type str,
+ "weightsum"            type double,
+ "sheetnumsum"          type double,
+ "gubillmemo"           type str,
+ "r_record_is_deleted"  type double,
+ "r_record_create_user" type str,
+ "r_record_create_date" type datetime format '%Y-%m-%d %H:%M:%S',
+ "r_record_update_user" type str,
+ "r_record_update_date" type DATETIME,
+ "r_record_change_flag" type double,
+ "createdman"           type str,
+ "ownername"            type str,
+ "importfrom"           type str,
+ "lendername"           type str,
+ "releaseweight"        type double,
+ "releasesheetnum"      type double
+)
+RECORD DELIMITER "CRLF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER T_GU_GUB_parser
+TYPE rcd
+SCHEMA T_GU_GUB_schema;
+
+CREATE TABLE T_GU_GUB using T_GU_GUB_parser; 
+
+CREATE STATISTICS MODEL T_GU_GUB_model1 ON TABLE T_GU_GUB
+GROUP BY (r_record_create_date)
+MEASURES (sum(weightsum),sum(releaseweight));
+
+dataset file T_dataset
+(
+ schema: T_GU_GUB_schema,
+ files: (
+         filename: "/home/kobe/Data/T_GU_GUB.txt",
+         serverid:0
+         ),
+ splitter: (
+         block_size: 10000000
+         )
+);

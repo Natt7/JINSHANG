@@ -1,0 +1,78 @@
+create job jinshang_93_t_si_logistics_ready_d_del(T_CHART_DETAILSTORAGE)
+begin
+
+dataset file t_si_logistics_ready_d_dataset
+(
+  filename:/home/natt/datajinshang/t_si_logistics_ready_d.csv,
+  serverid:0,
+  schema:T_SI_LOGISTICS_READY_D_schema,
+  charset:utf-8,
+  splitter:(block_size:10000000)
+);
+
+dataproc select t_si_logistics_ready_d_select
+(
+fields: [ 
+(fname:"seg_no",type:string,alias:"seg_nomd"),
+(fname:"ready_num",type:string,alias:"ready_nummd"),
+(fname:"pack_num",type:string,alias:"pack_nummd")
+],
+inputs: "t_si_logistics_ready_d_dataset",
+order_by:("seg_nomd","ready_nummd"),
+cache:"true",
+opr:del
+);
+
+dataproc join m_md_join
+(
+inputs: (left_input: t_si_logistics_ready_m_select, right_input: t_si_logistics_ready_d_select),
+join_keys: [("left_input.seg_nom","right_input.seg_nomd"),("left_input.ready_numm","right_input.ready_nummd")]
+);
+
+
+dataproc select m_md_join_select
+(
+fields: [ 
+(fname:"order_numm",type:string),
+(fname:"seg_nom",type:string),
+(fname:"pack_nummd",type:string),
+(fname:"provider_name",type:string)
+],
+inputs: "m_md_join",
+order_by:("order_numm","seg_nom","pack_nummd"),
+cache:"true"
+);
+
+dataproc join t_td_m_md_join
+(
+inputs: (left_input: t_td_join_select, right_input: m_md_join_select),
+join_keys: [("left_input.order_num","right_input.order_numm"),("left_input.seg_not","right_input.seg_nom"),("left_input.pack_num","right_input.pack_nummd")]
+);
+
+
+dataproc statistics stat1
+(
+  stat_model: "t_td_m_md_stat",
+  table : "t_td_m_md_table",
+  inputs : "t_td_m_md_join"
+);
+
+dataproc index ind1
+(
+  inputs:t_td_m_md_join,
+  table:t_td_m_md_table,
+  indexes:(t_td_m_md_index)
+);
+
+
+dataproc doc doc1
+(
+ inputs:"t_td_m_md_join",
+ table:"t_td_m_md_table",
+ format:"t_td_m_md_parser",
+ fields:["time_receive","order_num","seg_not","pack_num","weight_active","provider_name"]
+ );
+
+
+end;
+run job jinshang_93_t_si_logistics_ready_d_del(threads:1);

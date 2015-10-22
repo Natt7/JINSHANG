@@ -1,0 +1,41 @@
+create job t_zy_ck_outpack_add(t_zy_ck_outpack_add)
+begin
+dataproc select t_zy_ck_outpack_select
+(
+	fields:(
+				(fname:"stocktype",type:"str"),
+				(fname:"managenum",type:"str"),
+				(fname:"outbillno",type:"str"),
+				(fname:"netweight",type:"double"),
+				(fname:"grossweight",type:"double"),
+				(fname:"sheetnum",type:"double"),
+				(fname:"shopsignname",type:"str"),
+				(fname:"gradenum",type:"str"),
+				(fname:"creatername",type:"str"),
+				(fname:"deptid",type:"str"),
+				(fname:"goodsstateno",type:"str"),
+				(fname:"packnum",type:"str"),
+				(fname:"prodareaname",type:"str")
+			),
+	inputs:"t_zy_ck_outpack_add_dataset",
+	cache:true
+);
+
+dataproc join t_zy_ck_outbill_join_t_zy_ck_outpack 
+(
+    join_keys: (("left_input.outbillid","right_input.outbillno"),("left_input.deptid","right_input.deptid")),
+    inputs: 
+	(
+	left_input:"t_zy_ck_outbill_select.output.cache", 
+	right_input:"t_zy_ck_outpack_select"
+	)
+);
+
+dataproc statistics t_zy_ck_outbill_join_t_zy_ck_outpack_stat
+(
+ stat_model:t_zy_ck_outbill_join_t_zy_ck_outpack_model,
+ table : t_zy_ck_outbill_join_t_zy_ck_outpack_table,
+ inputs :t_zy_ck_outbill_join_t_zy_ck_outpack
+);
+end;
+run job t_zy_ck_outpack_add(threads:1);

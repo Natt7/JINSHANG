@@ -1,0 +1,33 @@
+create job T_GG_SJ_PRODUCTTYPE_delete_job(T_GG_SJ_PRODUCTTYPE)
+begin
+dataproc select T_GG_SJ_PRODUCTTYPE_select
+(
+        fields:(
+                 (fname:"kindname",type:"string")
+               ),
+        inputs:"T_GG_SJ_PRODUCTTYPE_dataset",
+		distinct:true,
+        cache:true,
+		opr:del
+);
+
+dataproc match T_GG_SJ_PRODUCTTYPE_match
+(
+	left_fields:("kindname"),
+	right_fields:("kindname"),
+	inputs:
+	(
+		left_input:"T_GG_SJ_PRODUCTTYPE_select",
+		right_input:"T_GG_SJ_PRODUCTTYPE_select.output.cache"
+	)
+);
+
+dataproc statistics T_GG_SJ_PRODUCTTYPE_statistics
+(
+ stat_model:T_GG_SJ_PRODUCTTYPE_model,
+ table : t_gg_sj_producttype,
+ inputs :T_GG_SJ_PRODUCTTYPE_match,
+ data_opr:delete
+);
+end;
+run job T_GG_SJ_PRODUCTTYPE_delete_job(threads:1);

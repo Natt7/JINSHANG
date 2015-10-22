@@ -1,0 +1,45 @@
+CREATE DATABASE db;
+USE db;
+
+create schema T_SS_SMS_SEND_LOG_schema
+source type CSV
+fields(
+        "seg_no" 				type string,
+        "send_index" 			type string,
+        "send_id"	 			type string,
+        "important_flag" 		type string,
+        "priority" 				type string,
+        "customer_id" 			type string,
+        "reciever_name" 		type string,
+        "destination_mobile" 	type string,
+        "sms_message" 			type string,
+        "sender_sign" 			type string,
+        "remark" 				type string,
+        "operator" 				type string,
+        "plan_send_date" 		type DATETIME,
+        "operate_date" 			type DATETIME,
+        "send_date" 			type DATETIME,
+        "business_no" 			type string,
+        "module_code" 			type string,
+        "deptid" 				type string
+      )
+RECORD DELIMITER "LF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+            
+CREATE PARSER T_SS_SMS_SEND_LOG_parser
+TYPE rcd    
+SCHEMA T_SS_SMS_SEND_LOG_schema;
+           
+CREATE TABLE t_ss_sms_send_log using T_SS_SMS_SEND_LOG_parser;
+
+create statistics model T_SS_SMS_SEND_LOG_model on table t_ss_sms_send_log
+measures (count(destination_mobile));
+
+dataset file T_SS_SMS_SEND_LOG_dataset
+(
+ schema:T_SS_SMS_SEND_LOG_schema,
+ filename: "/home/bryant/Conf/classA/jinshang-82/Data/t_ss_sms_send_log.txt",
+ serverid:0,
+ splitter:(block_size: 10000000)
+);

@@ -1,0 +1,22 @@
+create job t_tm_check_goods_log_job(t_tm_check_goods_log)
+begin
+dataproc select t_tm_check_goods_log_select
+(
+        fields:(
+                  (fname:"lock_flag",type:"str"),
+                  (fname:"net_weight",type:"str"),
+                  (fname:"sys_id",type:"str"),
+                  (fname:"create_date",type:"str")
+               ),
+        inputs:"t_tm_check_goods_log_dataset",
+        cache:true
+);
+
+dataproc statistics t_tm_check_goods_log_statistics
+(
+ stat_model:t_tm_check_goods_log_model,
+ table : t_tm_check_goods_log,
+ inputs :t_tm_check_goods_log_dataset
+);
+end;
+run job t_tm_check_goods_log_job (threads:1);
