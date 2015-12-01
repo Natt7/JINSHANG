@@ -1,0 +1,42 @@
+create job jinshang_97_t_zy_rk_inbilldetail_del(T_CHART_DETAILSTORAGE)
+begin
+dataset file t_zy_rk_inbilldetail_dataset
+(
+ schema: t_zy_rk_inbilldetail_schema,
+ files: (
+	 filename:
+	 "/home/yanyan/jinshang/Data/wmsdba-user/T_ZY_RK_INBILLDETAIL.csv",
+	 serverid: 0
+	 ),
+ splitter: (
+	 block_size: 10000000	  
+	 )
+);
+
+dataproc select t_zy_rk_inbilldetail_select
+(
+	fields:(
+				(fname:"ownerid",type:"str"),
+				(fname:"deptid",type:"str"),
+				(fname:"firstindate",type:"str"),
+				(fname:"netweight",type:"double"),
+				(fname:"manageno",type:"str"),
+				(fname:"goodsstateno",type:"str")
+				
+			),
+	inputs:"t_zy_rk_inbilldetail_dataset",
+	cache:true,
+	opr:del
+);
+
+
+dataproc statistics t_zy_rk_inbilldetail_stat
+(
+ stat_model:t_zy_rk_inbilldetail_model,
+ table : t_zy_rk_inbilldetail_table,
+ inputs :t_zy_rk_inbilldetail_select,
+ data_opr:delete
+);
+
+end;
+run job jinshang_97_t_zy_rk_inbilldetail_del(threads:1);

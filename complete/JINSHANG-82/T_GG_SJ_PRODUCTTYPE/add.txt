@@ -1,0 +1,33 @@
+create job T_GG_SJ_PRODUCTTYPE_add_job(T_GG_SJ_PRODUCTTYPE)
+begin
+dataproc select T_GG_SJ_PRODUCTTYPE_select
+(
+        fields:(
+                 (fname:"kindname",type:"string")
+               ),
+        inputs:"T_GG_SJ_PRODUCTTYPE_dataset",
+		distinct:true,
+        cache:true
+);
+
+dataproc distinct T_GG_SJ_PRODUCTTYPE_dis 
+(
+	left_fields:("kindname"),
+	right_fields:("kindname"),
+	inputs:
+	(
+		left_input:"T_GG_SJ_PRODUCTTYPE_select",
+		right_input:"T_GG_SJ_PRODUCTTYPE_select.output.cache"
+	),
+	leftadd:"true",
+	rightadd:"false"
+);
+
+dataproc statistics T_GG_SJ_PRODUCTTYPE_statistics
+(
+ stat_model:T_GG_SJ_PRODUCTTYPE_model,
+ table : t_gg_sj_producttype,
+ inputs :T_GG_SJ_PRODUCTTYPE_dis
+);
+end;
+run job T_GG_SJ_PRODUCTTYPE_add_job (threads:1);

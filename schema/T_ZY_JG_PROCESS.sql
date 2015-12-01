@@ -1,0 +1,87 @@
+create schema T_ZY_JG_PROCESS_schema
+SOURCE TYPE CSV
+FIELDS(
+"processid" type str,
+"deptid" type str,
+"customerid" type str,
+"processdept" type str,
+"processdeptname" type str,
+"processtype" type str,
+"processtypename" type str,
+"processmold" type str,
+"processmoldname" type str,
+"processstate" type double,
+"planenddate" type datetime,
+"kindno" type str,
+"kindname" type str,
+"packtype" type str,
+"packtypename" type str,
+"woodtype" type str,
+"woodtypename" type str,
+"straptype" type str,
+"straptypename" type str,
+"processprecision" type str,
+"orderinfo" type str,
+"fee" type double,
+"length" type double,
+"weigtht" type double,
+"sheet" type double,
+"piecenum" type double,
+"outcarbilltime" type datetime,
+"outcarbillempno" type str,
+"outcarbillempname" type str,
+"planno" type str,
+"preweightsum" type double,
+"meno" type str,
+"gradenumrange" type str,
+"gradenumrangename" type str,
+"thickrange" type str,
+"thickrangename" type str,
+"r_record_create_date" type datetime,
+"r_record_create_user" type str,
+"r_record_update_date" type datetime,
+"r_record_update_user" type str,
+"r_record_is_deleted" type double,
+"r_record_change_flag" type double,
+"density" type double,
+"processcustomno" type str,
+"processcustomname" type str,
+"settledeptno" type str,
+"settledeptname" type str,
+"settle_staus" type str,
+"settle_staus_name" type str,
+"settle_no" type str,
+"settle_date" type datetime,
+"acceptancer" type str,
+"acceptance_time" type datetime,
+"chanxian" type str,
+"mddeptname" type str,
+"articleys" type str,
+"materialgradenum" type str,
+"materialshopsign" type str,
+"cbxjgtype" type str,
+"jgmessage" type str,
+"jgstatus" type str,
+"articlefee" type str,
+"issettled" type double,
+"specialdown" type str,
+"articlesheet" type double,
+"articleweight" type double,
+"username" type str,
+"jfsendflag" type double,
+"isreceived" type str,
+"specialmemo" type str,
+"toprocessid" type str,
+"jxlocked" type str
+)
+SCHEMA DELIMITER "LF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER T_ZY_JG_PROCESS_parser
+TYPE rcd
+SCHEMA T_ZY_JG_PROCESS_schema;
+
+CREATE TABLE T_ZY_JG_PROCESS using T_ZY_JG_PROCESS_parser; 
+
+create index T_ZY_JG_PROCESS_index on table T_ZY_JG_PROCESS(processid);

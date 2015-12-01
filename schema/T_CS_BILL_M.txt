@@ -1,0 +1,45 @@
+create SCHEMA T_CS_BILL_M
+SOURCE TYPE CSV
+FIELDS(
+ "deptid" type str,
+ "seg_id" type str,
+ "bill_id" type str,
+ "bill_status" type str,
+ "bill_type" type str,
+ "valid_start_date" type datetime,
+ "valid_end_date" type datetime,
+ "plan_date" type datetime,
+ "wprovider_id" type str,
+ "wprovider_name" type str,
+ "wprovider_addr" type str,
+ "wprovider_contactor" type str,
+ "wprovider_tele" type str,
+ "wprovider_zip" type str,
+ "wprovider_fax" type str,
+ "customer_id" type str,
+ "contract_id" type str,
+ "consignee_id" type str,
+ "consignee_name" type str,
+ "consignee_addr" type str,
+ "consignee_respnder" type str,
+ "consignee_tele" type str,
+ "consignee_fax" type str,
+ "consignee_zipcode" type str,
+ "product_id" type str,
+ "factory_product_id" type str,
+ "plan_count"  type double,
+ "hosing_price" type double,
+ "consign_flag" type str,
+ "consign_vehicle" type str
+)
+SCHEMA DELIMITER "LF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER T_CS_BILL_M_parser
+TYPE rcd
+SCHEMA T_CS_BILL_M;
+
+CREATE TABLE T_CS_BILL_M_table  using T_CS_BILL_M_parser; 
+
+CREATE INDEX T_CS_BILL_M_index ON TABLE T_CS_BILL_M_table (seg_id);

@@ -1,0 +1,154 @@
+
+dataset file t_his_t_stacking_m_dataset
+(
+  filename:/home/jackie/JiraDebug/93/t_his_t_stacking_m.csv,
+  serverid:0,
+  schema:T_HIS_T_STACKING_M_schema,
+  charset:utf-8,
+  splitter:(block_size:10000000)
+);
+
+dataset file t_his_t_stacking_d_dataset
+(
+  filename:/home/jackie/JiraDebug/93/t_his_t_stacking_d.csv,
+  serverid:0,
+  schema:T_HIS_T_STACKING_D_schema,
+  charset:utf-8,
+  splitter:(block_size:10000000)
+);
+
+dataset file t_si_logistics_ready_m_dataset
+(
+  filename:/home/jackie/JiraDebug/93/t_si_logistics_ready_m.csv,
+  serverid:0,
+  schema:T_SI_LOGISTICS_READY_M_schema,
+  charset:utf-8,
+  splitter:(block_size:10000000)
+);
+
+dataset file t_si_logistics_ready_d_dataset
+(
+  filename:/home/jackie/JiraDebug/93/t_si_logistics_ready_d.csv,
+  serverid:0,
+  schema:T_SI_LOGISTICS_READY_D_schema,
+  charset:utf-8,
+  splitter:(block_size:10000000)
+);
+
+
+create job job1(t1)
+begin
+
+dataproc select t_his_t_stacking_m_select
+(
+fields: [ 
+(fname:"stacking_rec_num",type:string),
+(fname:"seg_no",type:string,alias:"seg_not"),
+(fname:"time_receive",type:datetime),
+(fname:"optflag",type:string),
+(fname:"order_num",type:string)
+],
+inputs: "t_his_t_stacking_m_dataset",
+order_by:("stacking_rec_num"),
+cache:"true"
+);
+
+dataproc select t_his_t_stacking_d_select
+(
+fields: ( 
+(fname:"stacking_rec_num",alias:"stacking_rec_numtd",type:string),
+(fname:"pack_num",type:string),
+(fname:"weight_active",type:double)
+),
+inputs: "t_his_t_stacking_d_dataset",
+order_by:("stacking_rec_numtd"),
+cache:"true"
+);
+
+
+dataproc join t_td_join
+(
+inputs: (left_input: t_his_t_stacking_m_select, right_input: t_his_t_stacking_d_select),
+join_keys: [("left_input.stacking_rec_num","right_input.stacking_rec_numtd")]
+);
+
+dataproc select t_td_join_select
+(
+fields: [ 
+(fname:"time_receive",type:datetime),
+(fname:"order_num",type:string),
+(fname:"seg_not",type:string),
+(fname:"pack_num",type:string),
+(fname:"weight_active",type:double)
+],
+inputs: "t_td_join",
+order_by:("order_num","seg_not","pack_num"),
+cache:"true"
+);
+
+
+dataproc select t_si_logistics_ready_m_select
+(
+fields: [ 
+(fname:"seg_no",type:string,alias:"seg_nom"),
+(fname:"ready_num",type:string,alias:"ready_numm"),
+(fname:"time_receive",type:datetime),
+(fname:"order_num",type:string,alias:"order_numm"),
+(fname:"provider_name",type:string)
+],
+inputs: "t_si_logistics_ready_m_dataset",
+order_by:("seg_nom","ready_numm"),
+cache:"true"
+);
+
+dataproc select t_si_logistics_ready_d_select
+(
+fields: [ 
+(fname:"seg_no",type:string,alias:"seg_nomd"),
+(fname:"ready_num",type:string,alias:"ready_nummd"),
+(fname:"pack_num",type:string,alias:"pack_nummd")
+],
+inputs: "t_si_logistics_ready_d_dataset",
+order_by:("seg_nomd","ready_nummd"),
+cache:"true"
+);
+
+
+dataproc join m_md_join
+(
+inputs: (left_input: t_si_logistics_ready_m_select, right_input: t_si_logistics_ready_d_select),
+join_keys: [("left_input.seg_nom","right_input.seg_nomd"),("left_input.ready_numm","right_input.ready_nummd")]
+);
+
+
+dataproc select m_md_join_select
+(
+fields: [ 
+(fname:"order_numm",type:string),
+(fname:"seg_nom",type:string),
+(fname:"pack_nummd",type:string),
+(fname:"provider_name",type:string)
+],
+inputs: "m_md_join",
+order_by:("order_numm","seg_nom","pack_nummd"),
+cache:"true"
+);
+
+dataproc join t_td_m_md_join
+(
+inputs: (left_input: t_td_join_select, right_input: m_md_join_select),
+join_keys: [("left_input.order_num","right_input.order_numm"),("left_input.seg_not","right_input.seg_nom"),("left_input.pack_num","right_input.pack_nummd")]
+);
+
+
+dataproc statistics t_td_m_md_join_stat
+(
+  stat_model: "t_td_m_md_model",
+  table : "t_td_m_md_table",
+  inputs : "t_td_m_md_join"
+);
+
+end;
+run job job1(threads:1);
+
+--select provider_name,sum(weight_active),min(time_receive),case when date_add(min(time_receive), "day",7)<sysdate() then 1 else 0 end from t_sum_min;

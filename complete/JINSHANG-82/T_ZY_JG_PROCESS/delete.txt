@@ -1,0 +1,33 @@
+create job T_ZY_JG_PROCESS_delete_job(T_ZY_JG_PROCESS)
+begin
+dataproc select T_ZY_JG_PROCESS_select
+(
+        fields:(
+                 (fname:"deptid",type:"string")
+               ),
+        inputs:"T_ZY_JG_PROCESS_dataset",
+		distinct:true,
+        cache:true,
+		opr:del
+);
+
+dataproc match T_ZY_JG_PROCESS_match
+(
+	left_fields:("deptid"),
+	right_fields:("deptid"),
+	inputs:
+	(
+		left_input:"T_ZY_JG_PROCESS_select",
+		right_input:"T_ZY_JG_PROCESS_select.output.cache"
+	)
+);
+
+dataproc statistics T_ZY_JG_PROCESS_statistics
+(
+ stat_model:T_ZY_JG_PROCESS_model,
+ table : t_zy_jg_process,
+ inputs :T_ZY_JG_PROCESS_match,
+ data_opr:delete
+);
+end;
+run job T_ZY_JG_PROCESS_delete_job(threads:1);

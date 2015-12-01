@@ -1,0 +1,75 @@
+
+CREATE MAP map_deptname ON T_COMMON_DEPT
+	KEY (DEPTID)
+	VALUE (DEPTNAME)
+	TYPE "str"
+	MAX LENGTH 200;
+
+dataset file T_COMMON_DEPT_dataset
+(
+ schema: T_COMMON_DEPT_schema,
+ files: (
+	 filename: "/home/jinshang/Data/query76/T_COMMON_DEPT.txt",
+	 serverid: 0
+	 ),
+ splitter: (
+	 block_size: 10000000	  
+	 )
+);
+
+dataset file T_BM_UI_CONFIGURE_dataset
+(
+ schema: T_BM_UI_CONFIGURE_schema,
+ files: (
+	 filename: "/home/jinshang/Data/query76/T_BM_UI_CONFIGURE.txt",
+	 serverid: 0
+	 ),
+ splitter: (
+	 block_size: 10000000	  
+	 )
+);
+
+dataset file T_GG_SJ_GOODS_dataset
+(
+ schema: T_GG_SJ_GOODS_schema,
+ files: (
+	 filename: "/home/jinshang/Data/query76/T_GG_SJ_GOODS.txt",
+	 serverid: 0
+	 ),
+ splitter: (
+	 block_size: 10000000	  
+	 )
+);
+
+
+create job add_job(T_CHART_DETAILSTORAGE)
+begin
+
+dataproc map map_isexists
+(  
+   inputs:T_COMMON_DEPT_dataset,
+   table:T_COMMON_DEPT
+);
+
+dataproc select T_GG_SJ_GOODS_select
+(
+	fields:(
+				(fname:"owner_num",type:"str"),
+				(fname:"deptid",type:"str"),
+				(fname:"deptname",type:"str"),
+				(fname:"sumdate",type:"str"),
+				(fname:"sumcount",type:"double"),
+				(fname:"sumweight",type:"double")
+			),
+	inputs:"T_dataset",
+	cache:true
+);
+
+dataproc statistics T_CHART_DETAILSTORAGE_name
+(
+ stat_model:T_CHART_DETAILSTORAGE_model,
+ table : T_CHART_DETAILSTORAGE,
+ inputs :T_dataset
+);
+end;
+run job add_job (threads:1);

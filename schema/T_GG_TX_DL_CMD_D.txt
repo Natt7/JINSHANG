@@ -1,0 +1,56 @@
+create SCHEMA T_GG_TX_DL_CMD_D
+SOURCE TYPE CSV
+FIELDS(
+"truck_stack_work_num" type str,
+"trans_commission_id" type str,
+"order_num" type str,
+"resource_num" type str,
+"shopsign" type str,
+"thick_product" type str,
+"width_product" type str,
+"length_product" type str,
+"weight_active"  type double,
+"n_pack" type double,
+"truck_num" type str,
+"stack_num" type str,
+"allocate_time" type str,
+"dept_id" type str,
+"deptid" type str,
+"extsysid" type str,
+"extsysstackid" type str,
+"optflag" type str,
+"product_dscr" type str,
+"prod_area" type str,
+"batch_center_id" type str,
+"consignee_name" type str,
+"trans_instruction_id" type str,
+"putin_date" type str,
+"wprovider_name" type str,
+"putin_type" type str,
+"carrier_code" type str,
+"carrier_name" type str,
+"plan_gross_weight" type double,
+"measure_code" type str,
+"source_wprovider_id" type str,
+"source_wprovider_name" type str,
+"modify_id" type str,
+"modify_date" type str,
+"bill_id" type str,
+"manu_id" type str,
+"operation_type" type str,
+"in_weight" type double,
+"proc_mark" type str default value "0",
+"contract_type" type str,
+"teleology_flag" type str
+)
+SCHEMA DELIMITER "LF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER T_GG_TX_DL_CMD_D_parser
+TYPE rcd
+SCHEMA T_GG_TX_DL_CMD_D;
+
+CREATE TABLE T_GG_TX_DL_CMD_D_table  using T_GG_TX_DL_CMD_D_parser; 
+
+CREATE INDEX T_GG_TX_DL_CMD_D_index ON TABLE T_GG_TX_DL_CMD_D_table (truck_stack_work_num);

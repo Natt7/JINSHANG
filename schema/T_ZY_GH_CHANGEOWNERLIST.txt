@@ -1,0 +1,60 @@
+create database db;
+use db;
+create schema T_ZY_GH_CHANGEOWNERLIST_schema
+source type CSV
+fields(
+ "changeownerid"   type str,
+ "deptid"   type str,
+ "proownername"   type str,
+ "preownerno"   type str,
+ "contractno"   type str,
+ "premanagenum"   type str,
+ "newownername"   type str,
+ "newownerno"   type str,
+ "newmanagenum"   type str,
+ "changedate"   type DATETIME,
+ "getbiilldate"   type DATETIME,
+ "foreignlistno" type str,
+ "orderlistno"   type str,
+ "outcarbilltime"   type DATETIME,
+ "outcarbillempno"   type str,
+ "outcarbillempname"   type str,
+ "outcarbillmemo"   type str,
+ "r_record_create_date" type DATETIME,
+ "r_record_create_user" type str,
+ "r_record_update_date" type DATETIME,
+ "r_record_update_user" type str,
+ "r_record_is_deleted" type double,
+ "netweightsum"        type double,
+ "grossweightsum"      type double,
+ "sheetnumsum"         type double,
+ "originsettle"        type double,
+ "r_record_change_flag" type double,
+ "issplit"             type double,
+ "outpassword"          type str,
+ "invoicekindid"        type str,
+ "invoicekindname"      type str,
+ "sortemp"              type str,
+ "sortemptele"          type str,
+ "settlestatus"         type str,
+ "confirm_date"         type DATETIME,
+ "confirm_emp"          type str,
+ "confirm_flag"         type str default value '0',
+ "dtlcount"           type double,
+ "issettled"           type double,
+ "jfsendflag"          type double,
+ "jyzxflag"         type double,
+ "sendmessage"       type str,
+ "jyzxcheckdate"       type DATETIME,
+ "jyzxcheckflag"       type double,
+ "idcode"               type str,
+ "username"           type str
+)
+RECORD DELIMITER "CRLF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "NULL";
+CREATE PARSER T_ZY_GH_CHANGEOWNERLIST_parser
+TYPE rcd
+SCHEMA T_ZY_GH_CHANGEOWNERLIST_schema;
+CREATE TABLE T_ZY_GH_CHANGEOWNERLIST using T_ZY_GH_CHANGEOWNERLIST_parser;
+CREATE INDEX T_ZY_GH_CHANGEOWNERLIST_index ON TABLE T_ZY_GH_CHANGEOWNERLIST(sortemp);

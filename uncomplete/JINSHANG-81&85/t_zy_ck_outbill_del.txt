@@ -1,0 +1,59 @@
+create job t_zy_ck_outbill_del(t_zy_ck_outbill_del)
+begin
+dataproc select t_zy_ck_outbill_select
+(
+	fields:(
+				(fname:"outbillownername",type:"str"),
+				(fname:"foreignlistno",type:"str"),
+				(fname:"outcusttime",type:"datetime"),
+				(fname:"outbillid",type:"str"),
+				(fname:"deptid",type:"str"),
+				(fname:"outbillownerno",type:"str")
+			),
+	inputs:"t_zy_ck_outbill_del_dataset",
+	order_by:(outbillid,deptid),
+	opr:del,
+	cache:true
+);
+
+dataproc select t_zy_ck_outpack_select_iilset
+(
+	fields:(
+				(fname:"stocktype",type:"str"),
+				(fname:"managenum",type:"str"),
+				(fname:"outbillno",type:"str"),
+				(fname:"netweight",type:"double"),
+				(fname:"grossweight",type:"double"),
+				(fname:"sheetnum",type:"double"),
+				(fname:"shopsignname",type:"str"),
+				(fname:"gradenum",type:"str"),
+				(fname:"creatername",type:"str"),
+				(fname:"deptid",type:"str"),
+				(fname:"goodsstateno",type:"str"),
+				(fname:"packnum",type:"str"),
+				(fname:"prodareaname",type:"str")
+			),
+	inputs:"t_zy_ck_outpack_select.output.cache",
+	order_by:(outbillno,deptid)
+);
+
+dataproc join t_zy_ck_outbill_join_t_zy_ck_outpack 
+(
+    join_keys: (("left_input.outbillid","right_input.outbillno"),("left_input.deptid","right_input.deptid")),
+    inputs: 
+	(
+	left_input:"t_zy_ck_outbill_select", 
+	right_input:"t_zy_ck_outpack_select_iilset"
+	),
+	alias:("right_input.deptid as pack_deptid")
+);
+
+dataproc statistics t_zy_ck_outbill_join_t_zy_ck_outpack_stat
+(
+ stat_model:t_zy_ck_outbill_join_t_zy_ck_outpack_model,
+ table : t_zy_ck_outbill_join_t_zy_ck_outpack_table,
+ inputs :t_zy_ck_outbill_join_t_zy_ck_outpack,
+ data_opr:delete
+);
+end;
+run job t_zy_ck_outbill_del(threads:1);

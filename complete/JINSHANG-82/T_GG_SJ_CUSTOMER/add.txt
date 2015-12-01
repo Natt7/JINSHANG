@@ -1,0 +1,33 @@
+create job T_GG_SJ_CUSTOMER_add_job(T_GG_SJ_CUSTOMER)
+begin
+dataproc select T_GG_SJ_CUSTOMER_select
+(
+        fields:(
+                 (fname:"ownername",type:"string")
+               ),
+        inputs:"T_GG_SJ_CUSTOMER_dataset",
+		distinct:true,
+        cache:true
+);
+
+dataproc distinct T_GG_SJ_CUSTOMER_dis
+(
+	left_fields:("ownername"),
+	right_fields:("ownername"),
+	inputs:
+	(
+		left_input:"T_GG_SJ_CUSTOMER_select",
+		right_input:"T_GG_SJ_CUSTOMER_select.output.cache"
+	),
+	leftadd:"true",
+	rightadd:"false"
+);
+
+dataproc statistics T_GG_SJ_CUSTOMER_statistics
+(
+ stat_model:t_gg_sj_customer_model,
+ table : t_gg_sj_customer,
+ inputs :T_GG_SJ_CUSTOMER_dis
+);
+end;
+run job T_GG_SJ_CUSTOMER_add_job (threads:1);

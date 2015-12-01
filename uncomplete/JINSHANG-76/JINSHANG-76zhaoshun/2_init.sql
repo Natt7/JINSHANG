@@ -1,0 +1,111 @@
+create job t_common_dept_job(t_common)
+begin
+dataset file t_common_dept_dataset
+(
+	schema:t_common_dept_schema,
+	charset:"UTF8",
+	filename: "/home/zhaoshun/Data/jingshang_data/T_COMMON_DEPT.txt",
+	serverid: "0",
+	splitter: (block_size: 10000000)		  		  
+);
+
+dataproc select t_common_dept_select
+(
+	fields:
+	(
+		(fname:"DEPTID",type:"string"),
+		(fname:"DEPTCD",type:"string"),
+		(fname:"DEPTNAME",type:"string"),
+		(fname:"DEPTDESC",type:"string")
+	),
+	inputs:t_common_dept_dataset,
+	cache:true
+);
+
+dataproc map t_map
+(  
+   inputs:t_common_dept_dataset,
+   table:t_common_dept
+);
+
+end;
+
+run job t_common_dept_job(threads:8);
+
+create job T_BM_UI_CONFIGURE_job(T_BM_UI)
+begin
+dataset file T_BM_UI_CONFIGURE_dataset
+(
+	schema:T_BM_UI_CONFIGURE_schema,
+	charset:"UTF8",
+	filename: "/home/zhaoshun/Data/jingshang_data/T_BM_UI_CONFIGURE.txt",
+	serverid: "0",
+	splitter: (block_size: 10000000)		  		  
+);
+
+dataproc select t_common_dept_select
+(
+	fields:
+	(
+		(fname:"MANAGE_NO",type:"string"),
+		(fname:"DEPTID",type:"string"),
+		(fname:"CONFIGURE_NO",type:"string"),
+		(fname:"CONFIGURE_DESC",type:"string")
+	),
+	inputs:T_BM_UI_CONFIGURE_dataset,
+	cache:true
+);
+
+dataproc map c_map
+(  
+   inputs:T_BM_UI_CONFIGURE_dataset,
+   table:T_BM_UI_CONFIGURE
+);
+
+end;
+
+run job T_BM_UI_CONFIGURE_job(threads:8);
+
+create job t_gg_sj_goods_job(t_gg_sj)
+begin
+dataset file t_gg_sj_goods_dataset
+(
+	schema:t_gg_sj_goods_schema,
+	charset:"UTF8",
+	filename:"/home/zhaoshun/Data/jingshang_data/T_GG_SJ_GOODS.txt",
+	serverid:0,
+	splitter:(block_size: 10000000)		  
+);
+
+dataproc select t_gg_sj_goods_select
+(
+	fields:
+	(
+		(fname:"GOODSID",type:"string"),
+		(fname:"DEPTID",type:"string"),
+		(fname:"GRADENUM",type:"string"),
+		(fname:"SHOPSIGNID",type:"string"),
+		(fname:"SHOPSIGNNAME",type:"string"),
+		(fname:"PRODAREAID",type:"string"),
+		(fname:"PRODAREANAME",type:"string"),
+		(fname:"KINDNO",type:"string"),
+		(fname:"KINDNAME",type:"string"),
+		(fname:"OWNERNAME",type:"string"),
+		(fname:"GOODSOWNERPACKNO",type:"string"),
+		(fname:"NETWEIGHT",type:"double"),
+		(fname:"GROSSWEIGHT",type:"double"),
+		(fname:"SHEETNUM",type:"double")
+	),
+	inputs:t_gg_sj_goods_dataset,
+	cache:true
+);
+
+dataproc statistics g_sta_statistics
+(
+	table: t_gg_sj_goods,
+	inputs: t_gg_sj_goods_select
+);
+
+end;
+
+run job t_gg_sj_goods_job (threads:8);

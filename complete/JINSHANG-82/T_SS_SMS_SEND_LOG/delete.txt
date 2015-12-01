@@ -1,0 +1,33 @@
+create job T_SS_SMS_SEND_LOG_delete_job(T_SS_SMS_SEND_LOG)
+begin
+dataproc select T_SS_SMS_SEND_LOG_select
+(
+        fields:(
+                 (fname:"destination_mobile",type:"string")
+               ),
+        inputs:"T_SS_SMS_SEND_LOG_dataset",
+		distinct:true,
+        cache:true,
+		opr:del
+);
+
+dataproc match T_SS_SMS_SEND_LOG_match
+(
+	left_fields:("destination_mobile"),
+	right_fields:("destination_mobile"),
+	inputs:
+	(
+		left_input:"T_SS_SMS_SEND_LOG_select",
+		right_input:"T_SS_SMS_SEND_LOG_select.output.cache"
+	)
+);
+
+dataproc statistics T_SS_SMS_SEND_LOG_statistics
+(
+ stat_model:T_SS_SMS_SEND_LOG_model,
+ table : t_ss_sms_send_log,
+ inputs :T_SS_SMS_SEND_LOG_match,
+ data_opr:delete
+);
+end;
+run job T_SS_SMS_SEND_LOG_delete_job(threads:1);

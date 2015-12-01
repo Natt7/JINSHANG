@@ -1,0 +1,69 @@
+create SCHEMA T_TM_STOCK_NOTICE_JF
+SOURCE TYPE CSV
+FIELDS(
+"request_sn" type str,
+"sys_id" type str,
+"dept_id" type str,
+"owner_id" type str,
+"resource_num" type str,
+"pack_num" type str,
+"goods_id" type str,
+"act_type" type str,
+"price" type double,
+"bill_id" type str,
+"bill_date" type datetime,
+"net_weight" type double,
+"gross_weight" type double,
+"create_date" type datetime,
+"optflag" type str default value "0",
+"business_type" type str,
+"bill_subid" type str,
+"good_id" type str,
+"product_id" type str,
+"plan_weight" type double,
+"plan_qty" type double,
+"weight_unit" type str,
+"quantity_unit" type str,
+"spec" type str,
+"valid_start_date" type datetime,
+"valid_end_date" type datetime,
+"plan_date" type datetime,
+"wprovider_id" type str,
+"wprovider_name" type str,
+"wprovider_addr" type str,
+"wprovider_contactor" type str,
+"wprovider_tele" type str,
+"wprovider_zip" type str,
+"wprovider_fax" type str,
+"customer_id" type str,
+"consignee_id" type str,
+"consignee_name" type str,
+"consignee_addr" type str,
+"consignee_respnder" type str,
+"consignee_tele" type str,
+"consignee_fax" type str,
+"consignee_zipcode" type str,
+"printed" type double,
+"bill_print_date" type datetime,
+"print_batch_id" type str,
+"fetch_person" type str,
+"fetch_person_id_card" type str,
+"bill_dessent_type" type str,
+"bill_flag" type str,
+"checkbilldate" type datetime,
+"carid" type str,
+"dirver" type str,
+"idcode" type str,
+"memo" type str
+)
+SCHEMA DELIMITER "LF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER T_TM_STOCK_NOTICE_JF_parser
+TYPE rcd
+SCHEMA T_TM_STOCK_NOTICE_JF;
+
+CREATE TABLE T_TM_STOCK_NOTICE_JF_table  using T_TM_STOCK_NOTICE_JF_parser; 
+
+CREATE INDEX T_TM_STOCK_NOTICE_JF_index ON TABLE T_TM_STOCK_NOTICE_JF_table (request_sn);

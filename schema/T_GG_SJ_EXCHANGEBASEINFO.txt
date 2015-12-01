@@ -1,0 +1,27 @@
+create SCHEMA T_GG_SJ_EXCHANGEBASEINFO
+SOURCE TYPE CSV
+FIELDS(
+"extsysid" type str,
+"type" type str,
+"extbaseinfo" type str,
+"sysbaseinfoid" type str,
+"memo" type str,
+"deptid" type str,
+"r_record_create_date" type datetime,
+"r_record_create_user" type str,
+"r_record_update_date" type datetime,
+"r_record_update_user" type str,
+"r_record_is_deletedtype" type double,
+"r_record_change_flag" type double
+)
+SCHEMA DELIMITER "LF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER T_GG_SJ_EXCHANGEBASEINFO_parser
+TYPE rcd
+SCHEMA T_GG_SJ_EXCHANGEBASEINFO;
+
+CREATE TABLE T_GG_SJ_EXCHANGEBASEINFO_table  using T_GG_SJ_EXCHANGEBASEINFO_parser; 
+
+CREATE INDEX T_GG_SJ_EXCHANGEBASEINFO_index ON TABLE T_GG_SJ_EXCHANGEBASEINFO_table (extsysid);

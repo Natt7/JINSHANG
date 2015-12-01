@@ -1,0 +1,25 @@
+create job add_job(T_CHART_DETAILSTORAGE)
+begin
+dataproc select T_select
+(
+        fields:(
+                                (fname:"owner_num",type:"str"),
+                                (fname:"deptid",type:"str"),
+                                (fname:"deptname",type:"str"),
+                                (fname:"sumdate",type:"datetime"),
+                                (fname:"sumcount",type:"double"),
+                                (fname:"sumweight",type:"double")
+                        ),
+        inputs:"T_dataset",
+        cache:true
+);
+
+dataproc statistics T_CHART_DETAILSTORAGE_name
+(
+ stat_model:T_CHART_DETAILSTORAGE_model,
+ table : T_CHART_DETAILSTORAGE,
+ inputs :T_dataset
+);
+end;
+run job add_job (threads:1);
+

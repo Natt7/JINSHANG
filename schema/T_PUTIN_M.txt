@@ -1,0 +1,23 @@
+create SCHEMA T_PUTIN_M
+SOURCE TYPE CSV
+FIELDS(
+"seg_no" type str,
+"putin_apply_id" type str,
+"process_plan_id" type str,
+"total_weight" type double,
+"deptid" type str,
+"optflag" type str default value "0",
+"owner_num" type str,
+"insert_time" type datetime
+)
+SCHEMA DELIMITER "LF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER T_PUTIN_M_parser
+TYPE rcd
+SCHEMA T_PUTIN_M;
+
+CREATE TABLE T_PUTIN_M_table  using T_PUTIN_M_parser; 
+
+CREATE INDEX T_PUTIN_M_index ON TABLE T_PUTIN_M_table (seg_no);

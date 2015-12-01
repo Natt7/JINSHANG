@@ -1,0 +1,86 @@
+CREATE DATABASE db;
+USE db;
+
+create schema t_zy_rk_inbilldetail_schema_stat
+source type CSV
+fields(
+		"ownerid" type str,
+		"deptid"    type str,
+		"firstindate" type datetime format '%Y/%m/%d %H:%M:%S',
+		"netweight"   type double,
+		"manageno"  type str,
+		"goodsstateno" type str
+	  )
+RECORD DELIMITER "CRLF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER t_zy_rk_inbilldetail_stat_parser
+TYPE rcd
+SCHEMA t_zy_rk_inbilldetail_schema_stat;
+
+CREATE TABLE t_zy_rk_inbilldetail_table using t_zy_rk_inbilldetail_stat_parser; 
+
+create statistics model t_zy_rk_inbilldetail_model on table
+t_zy_rk_inbilldetail_table
+group by (ownerid,deptid,firstindate,netweight,manageno,goodsstateno)
+measures (sum(netweight),count(*));
+
+
+create schema
+t_zy_gh_changeownerdetail_join_t_zy_gh_changeownerlist_schema_stat
+source type CSV
+fields(
+		"changeownerno" type str,
+		"deptid"    type str,
+		"premanagenum"  type str,
+		"netweight"   type double,
+		"changeownerid"  type str,
+		"newownerno" type str,
+		"changedate" type datetime format '%Y/%m/%d %H:%M:%S'
+	  )
+RECORD DELIMITER "CRLF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER t_zy_gh_changeownerdetail_join_t_zy_gh_changeownerlist_stat_parser
+TYPE rcd
+SCHEMA t_zy_gh_changeownerdetail_join_t_zy_gh_changeownerlist_schema_stat;
+
+CREATE TABLE t_zy_gh_changeownerdetail_join_t_zy_gh_changeownerlist_table
+using t_zy_gh_changeownerdetail_join_t_zy_gh_changeownerlist_stat_parser; 
+
+create statistics model
+t_zy_gh_changeownerdetail_join_t_zy_gh_changeownerlist_model on table
+t_zy_gh_changeownerdetail_join_t_zy_gh_changeownerlist_table
+group by (changeownerno,deptid,premanagenum,netweight,changeownerid,newownerno,changedate)
+measures (sum(netweight),count(*));
+
+
+create schema t_zy_ck_outpack_join_t_zy_ck_outbill_schema_stat
+source type CSV
+fields(
+		"outbillno" type str,
+		"deptid"    type str,
+		"ownerno"  type str,
+		"managenum"   type str,
+		"netweight"  type double,
+		"goodsstateno" type str,
+		"outbillid"  type str,
+		"outcusttime"  type datetime
+	  )
+RECORD DELIMITER "CRLF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER t_zy_ck_outpack_join_t_zy_ck_outbill_stat_parser
+TYPE rcd
+SCHEMA t_zy_ck_outpack_join_t_zy_ck_outbill_schema_stat;
+
+CREATE TABLE t_zy_ck_outpack_join_t_zy_ck_outbill_table using
+t_zy_ck_outpack_join_t_zy_ck_outbill_stat_parser; 
+
+create statistics model t_zy_ck_outpack_join_t_zy_ck_outbill_model on table
+t_zy_ck_outpack_join_t_zy_ck_outbill_table
+group by (outbillno,deptid,ownerno,managenum,netweight,goodsstateno,outbillid,outcusttime)
+measures (sum(netweight),count(*));

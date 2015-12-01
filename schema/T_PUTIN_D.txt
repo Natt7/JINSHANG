@@ -1,0 +1,36 @@
+create SCHEMA T_PUTIN_D
+SOURCE TYPE CSV
+FIELDS(
+"seg_no" type str,
+"putin_apply_id" type str,
+"process_plan_id" type str,
+"pack_id" type str,
+"net_weight" type double,
+"quantity" type double,
+"product_type_id" type str,
+"product_type_name" type str,
+"shopsign" type str,
+"spec" type str,
+"producing_area_code" type str,
+"producing_area_name" type str,
+"wprovider_id" type str,
+"wprovider_name" type str,
+"location_name" type str,
+"deptid" type str,
+"optflag" type str default value "0",
+"factory_product_id" type str,
+"owner_num" type str,
+"insert_time" type datetime,
+"product_id" type str
+)
+SCHEMA DELIMITER "LF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER T_PUTIN_D_parser
+TYPE rcd
+SCHEMA T_PUTIN_D;
+
+CREATE TABLE T_PUTIN_D_table  using T_PUTIN_D_parser; 
+
+CREATE INDEX T_PUTIN_D_index ON TABLE T_PUTIN_D_table (seg_no);

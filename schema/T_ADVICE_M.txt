@@ -1,0 +1,29 @@
+create SCHEMA T_ADVICE_M
+SOURCE TYPE CSV
+FIELDS(
+"seg_no" type str,
+"advice_num" type str,
+"advice_name" type str,
+"advice_date" type datetime,
+"advice_status" type str,
+"advice_type" type str,
+"consignee_name" type str,
+"customer_num" type str,
+"deliver_type" type str,
+"deptid" type str,
+"optflag" type str default value "0",
+"owner_num" type str,
+"insert_time" type datetime,
+"ownerid" type str
+)
+SCHEMA DELIMITER "LF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER T_ADVICE_M_parser
+TYPE rcd
+SCHEMA T_ADVICE_M;
+
+CREATE TABLE T_ADVICE_M_table  using T_ADVICE_M_parser; 
+
+CREATE INDEX T_ADVICE_M_index ON TABLE T_ADVICE_M_table (seg_no);

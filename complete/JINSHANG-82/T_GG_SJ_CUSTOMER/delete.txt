@@ -1,0 +1,33 @@
+create job T_GG_SJ_CUSTOMER_delete_job(T_GG_SJ_CUSTOMER)
+begin
+dataproc select T_GG_SJ_CUSTOMER_select
+(
+        fields:(
+                 (fname:"ownername",type:"string")
+               ),
+        inputs:"T_GG_SJ_CUSTOMER_dataset",
+		distinct:true,
+        cache:true,
+		opr:del
+);
+
+dataproc match T_GG_SJ_CUSTOMER_match
+(
+	left_fields:("ownername"),
+	right_fields:("ownername"),
+	inputs:
+	(
+		left_input:"T_GG_SJ_CUSTOMER_select",
+		right_input:"T_GG_SJ_CUSTOMER_select.output.cache"
+	)
+);
+
+dataproc statistics T_GG_SJ_CUSTOMER_statistics
+(
+ stat_model:t_gg_sj_customer_model,
+ table : t_gg_sj_customer,
+ inputs :T_GG_SJ_CUSTOMER_match,
+ data_opr:delete
+);
+end;
+run job T_GG_SJ_CUSTOMER_delete_job(threads:1);

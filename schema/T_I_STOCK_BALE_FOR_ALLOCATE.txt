@@ -1,0 +1,81 @@
+create SCHEMA T_I_STOCK_BALE_FOR_ALLOCATE
+SOURCE TYPE CSV
+FIELDS(
+"seg_no" type str,
+"provider_id" type str,
+"bill_num" type str,
+"factory_product_id" type str,
+"pack_id" type str,
+"download_time" type str,
+"product_type_name" type str,
+"net_weight" type double,
+"gross_weight" type double,
+"length" type double,
+"length_max" type double,
+"width" type double,
+"thick" type double,
+"unit_count" type double,
+"heat_num" type str,
+"bill_weight" type double,
+"bill_count" type double,
+"bill_create_time" type str,
+"bill_release_time" type str,
+"bill_execute_time" type str,
+"trans_unit_id" type str,
+"trans_unit_name" type str,
+"trans_unit_sim_name" type str,
+"delivery_spot_id" type str,
+"private_line_id" type str,
+"trans_type_id" type str,
+"warehouse_id"  type str,
+"ready_num" type str,
+"ready_time" type str,
+"allocate_flag" type str,
+"allocate_time" type str,
+"allocate_operator" type str,
+"wprovider_id" type str,
+"tprovider_id" type str,
+"insert_time" type str,
+"insert_desc" type str,
+"delivery_plan_id" type str,
+"trans_commission_id" type str,
+"trans_commission_subid" type str,
+"trans_type" type str,
+"delivery_type" type str,
+"customer_id" type str,
+"s_contract_id" type str,
+"s_contract_subid"  type str,
+"settle_type" type str,
+"invoice_title" type str,
+"temp1" type str,
+"document_flag" type str default value "0",
+"document_remark" type str,
+"allocate_num" type str,
+"audit_flag" type str,
+"z_plan_apply_date" type datetime,
+"trans_price" type double,
+"other_price" type double,
+"if_setprice" type str,
+"proc_mark" type str,
+"optflag" type str,
+"receive_time" type datetime,
+"deptid" type str,
+"owner_num" type str,
+"shopsign" type str,
+"prodarea" type str,
+"product_id" type str,
+"product_dscr" type str,
+"in_weight" type double,
+"grade_num" type str
+)
+SCHEMA DELIMITER "LF"
+FIELD DELIMITER ","
+TEXT QUALIFIER "DQM";
+
+CREATE PARSER T_I_STOCK_BALE_FOR_ALLOCATE_parser
+TYPE rcd
+SCHEMA T_I_STOCK_BALE_FOR_ALLOCATE;
+
+CREATE TABLE T_I_STOCK_BALE_FOR_ALLOCATE_table  using T_I_STOCK_BALE_FOR_ALLOCATE_parser; 
+
+CREATE INDEX T_I_STOCK_BALE_FOR_ALLOCATE_index ON TABLE T_I_STOCK_BALE_FOR_ALLOCATE_table (seg_no);
