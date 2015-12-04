@@ -1,0 +1,31 @@
+create job T_CHART_DETAILSTORAGE_job(T_CHART_DETAILSTORAGE)
+begin
+dataset file T_dataset
+(
+ schema:T_CHART_DETAILSTORAGE_schema,
+ filename: "/home/natt/jsdata/T_CHART_DETAILSTORAGE.csv",
+ serverid:0,
+ charset:utf-8,
+ splitter:(block_size: 10000000)
+);
+
+dataproc select T_select
+(
+        fields:(
+                                (fname:"owner_num"),
+                                (fname:"deptid"),
+                                (fname:"sumdate"),
+                                (fname:"sumweight")
+                        ),
+        inputs:"T_dataset",
+        cache:true
+);
+
+dataproc statistics T_CHART_DETAILSTORAGE_name
+(
+ stat_model:T_CHART_DETAILSTORAGE_model,
+ table : T_CHART_DETAILSTORAGE,
+ inputs :T_select
+);
+end;
+run job T_CHART_DETAILSTORAGE_job (threads:1);

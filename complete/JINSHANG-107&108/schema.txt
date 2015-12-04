@@ -7,7 +7,7 @@ fields(
                 "owner_num" type str,
                 "deptid"    type str,
                 "deptname"  type str,
-                "sumdate"   type datetime format '%Y-%m-%d %H:%M:%S',
+                "sumdate"   type datetime format '%Y%m%d',
                 "sumcount"  type double,
                 "sumweight" type double
           )
@@ -24,16 +24,3 @@ CREATE TABLE T_CHART_DETAILSTORAGE using T_CHART_DETAILSTORAGE_parser;
 create statistics model T_CHART_DETAILSTORAGE_model on table T_CHART_DETAILSTORAGE
 group by (sumdate,deptid,owner_num)
 measures (sum(sumweight));
-
-dataset file T_dataset
-(
- schema: T_CHART_DETAILSTORAGE_schema,
- files: (
-         filename: "/home/kobe/Data/T_CHART_DETAILSTORAGE.txt",
-         serverid:0
-         ),
- splitter: (
-         block_size: 10000000
-         )
-);
-
