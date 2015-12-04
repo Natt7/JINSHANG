@@ -151,16 +151,3 @@ CREATE TABLE T_GG_SJ_GOODS using T_GG_SJ_GOODS_parser;
 create statistics model T_GG_SJ_GOODS_model on table T_GG_SJ_GOODS
 group by (prodareaname,kindname,goodsstateno,deptid)
 measures (sum(netweight));
-
-dataset file T_dataset
-(
- schema: T_GG_SJ_GOODS_schema,
- files: (
-         filename: "/home/kobe/Data/T_GG_SJ_GOODS.txt",
-         serverid:0
-         ),
- splitter: (
-         block_size: 10000000
-         )
-);
-

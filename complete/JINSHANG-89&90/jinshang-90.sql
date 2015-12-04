@@ -1,7 +1,3 @@
-SELECT *
-FROM SHOW.KINDWEIGHT;
-
-
 SELECT prodareaname,
        sum(netweightsum)
 FROM t_gg_sj_goods
