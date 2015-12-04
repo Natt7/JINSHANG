@@ -43,14 +43,4 @@ CREATE STATISTICS MODEL T_GU_GUB_model1 ON TABLE T_GU_GUB
 GROUP BY (r_record_create_date)
 MEASURES (sum(weightsum),sum(releaseweight));
 
-dataset file T_dataset
-(
- schema: T_GU_GUB_schema,
- files: (
-         filename: "/home/kobe/Data/T_GU_GUB.txt",
-         serverid:0
-         ),
- splitter: (
-         block_size: 10000000
-         )
-);
+

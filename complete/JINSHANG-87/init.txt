@@ -1,0 +1,31 @@
+create job T_GU_GUB_job(T_GU_GUB)
+begin
+
+dataset file T_dataset
+(
+ schema:T_GU_GUB_schema,
+ filename: "/home/natt/jsdata/T_GU_GUB.csv",
+ serverid:0,
+ charset:utf-8,
+ splitter:(block_size: 10000000)
+);
+
+
+dataproc select T_select
+(
+        fields:[
+                 (fname:"weightsum"),
+                 (fname:"r_record_create_date"),
+                 (fname:"releaseweight")               
+                        ],
+        inputs:"T_dataset",
+        cache:true
+);
+ dataproc statistics T_GU_GUB_dataproc1
+(
+  stat_model:T_GU_GUB_model1,
+  table:T_GU_GUB,
+  inputs:T_dataset
+);
+end;
+run job T_GU_GUB_job (threads:1);
