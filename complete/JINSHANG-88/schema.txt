@@ -62,17 +62,6 @@ SCHEMA T_ZY_GH_CHANGEOWNERLIST_schema;
 CREATE TABLE T_ZY_GH_CHANGEOWNERLIST using T_ZY_GH_CHANGEOWNERLIST_parser;
 
 CREATE STATISTICS MODEL T_ZY_GH_CHANGEOWNERLIST_model ON TABLE T_ZY_GH_CHANGEOWNERLIST
-GROUP BY (r_record_create_date,jyzxflag,avg(r_record_create_date))
+GROUP BY (r_record_create_date)
 MEASURES (sum(netweightsum),count(*));
 
-dataset file T_dataset
-(
- schema: T_ZY_GH_CHANGEOWNERLIST_schema,
- files: (
-         filename: "/home/kobe/Data/T_ZY_GH_CHANGEOWNERLIST.txt",
-         serverid:0
-         ),
- splitter: (
-         block_size: 10000000
-         )
-);

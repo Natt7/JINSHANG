@@ -1,0 +1,30 @@
+create job T_ZY_GH_CHANGEOWNERLIST_job(T_ZY_GH_CHANGEOWNERLIST)
+begin
+
+dataset file T_dataset
+(
+ schema:T_ZY_GH_CHANGEOWNERLIST_schema,
+ filename: "/home/natt/jsdata/T_ZY_GH_CHANGEOWNERLIST.csv",
+ serverid:0,
+ charset:utf-8,
+ splitter:(block_size: 10000000)
+);
+
+dataproc select T_select
+(
+        fields:[
+                 (fname:"r_record_create_date"),
+                 (fname:"netweightsum"),
+                 (fname:"jyzxflag")
+                        ],
+        inputs:"T_dataset",
+        cache:true
+);
+ dataproc statistics T_ZY_GH_CHANGEOWNERLIST_dataproc
+(
+  stat_model:T_ZY_GH_CHANGEOWNERLIST_model,
+  table:T_ZY_GH_CHANGEOWNERLIST,
+  inputs:T_select
+);
+end;
+run job T_ZY_GH_CHANGEOWNERLIST_job (threads:1);
