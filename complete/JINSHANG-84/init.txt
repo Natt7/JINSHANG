@@ -1,0 +1,31 @@
+create job t_tm_check_goods_log_job(t_tm_check_goods_log)
+begin
+
+dataset file t_tm_check_goods_log_dataset
+(
+ schema:t_tm_check_goods_log_schema,
+ filename: "/home/natt/jsdata/T_TM_CHECK_GOODS_LOG.csv",
+ serverid:0,
+ charset:utf-8,
+ splitter:(block_size: 10000000)
+);
+
+dataproc select t_tm_check_goods_log_select
+(
+        fields:[
+                  (fname:"lock_flag"),
+                  (fname:"net_weight"),
+                  (fname:"sys_id"),
+                  (fname:"create_date")
+               ],
+        inputs:"t_tm_check_goods_log_dataset"
+);
+
+dataproc statistics t_tm_check_goods_log_statistics
+(
+ stat_model:t_tm_check_goods_log_model,
+ table : t_tm_check_goods_log,
+ inputs :t_tm_check_goods_log_select
+);
+end;
+run job t_tm_check_goods_log_job (threads:1);

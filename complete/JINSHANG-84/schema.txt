@@ -62,15 +62,5 @@ schema t_tm_check_goods_log_schema;
 create table t_tm_check_goods_log using t_tm_check_goods_log_parser;
 
 create statistics model t_tm_check_goods_log_model on table t_tm_check_goods_log
-group by (lock_flag,sys_id,create_date)
+group by (lock_flag)
 measures (sum(net_weight),count(*));
-
-dataset file t_tm_check_goods_log_dataset
-(
- schema:t_tm_check_goods_log_schema,
- files:(
-	filename: "/home/kobe/Data/T_TM_CHECK_GOODS_LOG.txt",
-	serverid:0
- ),
- splitter:(block_size: 10000000)
-);
