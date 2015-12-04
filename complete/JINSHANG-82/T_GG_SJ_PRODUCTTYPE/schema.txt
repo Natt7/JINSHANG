@@ -29,7 +29,7 @@ fields(
             "bwlno"                type str,
             "bwlnoparentid"        type str
           )
-RECORD DELIMITER "LF"
+RECORD DELIMITER "CRLF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
             
@@ -41,11 +41,3 @@ CREATE TABLE t_gg_sj_producttype using T_GG_SJ_PRODUCTTYPE_parser;
 
 create statistics model T_GG_SJ_PRODUCTTYPE_model on table t_gg_sj_producttype
 measures (count(kindname));
-
-dataset file T_GG_SJ_PRODUCTTYPE_dataset
-(
- schema:T_GG_SJ_PRODUCTTYPE_schema,
- filename: "/home/bryant/Conf/classA/jinshang-82/Data/T_GG_SJ_PRODUCTTYPE.txt",
- serverid:0,
- splitter:(block_size: 10000000)
-);

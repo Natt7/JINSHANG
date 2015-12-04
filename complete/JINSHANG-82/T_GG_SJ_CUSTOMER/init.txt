@@ -1,5 +1,15 @@
 create job T_GG_SJ_CUSTOMER_job(T_GG_SJ_CUSTOMER)
 begin
+dataset file T_GG_SJ_CUSTOMER_dataset
+(
+ schema:T_GG_SJ_CUSTOMER_schema,
+ filename: "/home/natt/jsdata/T_GG_SJ_CUSTOMER.csv",
+ serverid:0,
+ charset:utf-8,
+ splitter:(block_size: 10000000)
+);
+
+
 dataproc select T_GG_SJ_CUSTOMER_select
 (
         fields:(
@@ -17,4 +27,5 @@ dataproc statistics T_GG_SJ_CUSTOMER_statistics
  inputs :T_GG_SJ_CUSTOMER_select
 );
 end;
-run job T_GG_SJ_CUSTOMER_job (threads:1);
+run job T_GG_SJ_CUSTOMER_job (threads:8);
+

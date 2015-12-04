@@ -45,7 +45,7 @@ fields(
               "username"             type str,
               "sendemail"            type str
        )
-RECORD DELIMITER "LF"
+RECORD DELIMITER "CRLF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
             
@@ -57,12 +57,3 @@ create table t_gg_sj_customer using t_gg_sj_customer_parser;
 
 create statistics model t_gg_sj_customer_model on table t_gg_sj_customer
 measures (count(ownername));
-
-dataset file T_GG_SJ_CUSTOMER_dataset
-(
- schema:T_GG_SJ_CUSTOMER_schema,
- filename: "/home/bryant/Conf/classA/jinshang-82/Data/T_GG_SJ_CUSTOMER.txt",
- serverid:0,
- splitter:(block_size: 10000000)
-);
-

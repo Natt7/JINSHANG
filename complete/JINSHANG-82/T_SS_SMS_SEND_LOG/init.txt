@@ -1,5 +1,14 @@
 create job T_SS_SMS_SEND_LOG_job(T_SS_SMS_SEND_LOG)
 begin
+dataset file T_SS_SMS_SEND_LOG_dataset
+(
+ schema:T_SS_SMS_SEND_LOG_schema,
+ filename: "/home/natt/jsdata/t_ss_sms_send_log.csv",
+ serverid:0,
+ charset:utf-8,
+ splitter:(block_size: 10000000)
+);
+
 dataproc select T_SS_SMS_SEND_LOG_select
 (
         fields:(

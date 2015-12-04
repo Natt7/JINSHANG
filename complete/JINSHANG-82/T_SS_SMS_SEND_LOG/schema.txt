@@ -23,7 +23,7 @@ fields(
         "module_code" 			type string,
         "deptid" 				type string
       )
-RECORD DELIMITER "LF"
+RECORD DELIMITER "CRLF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
             
@@ -36,10 +36,3 @@ CREATE TABLE t_ss_sms_send_log using T_SS_SMS_SEND_LOG_parser;
 create statistics model T_SS_SMS_SEND_LOG_model on table t_ss_sms_send_log
 measures (count(destination_mobile));
 
-dataset file T_SS_SMS_SEND_LOG_dataset
-(
- schema:T_SS_SMS_SEND_LOG_schema,
- filename: "/home/bryant/Conf/classA/jinshang-82/Data/t_ss_sms_send_log.txt",
- serverid:0,
- splitter:(block_size: 10000000)
-);

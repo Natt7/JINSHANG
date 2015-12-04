@@ -77,7 +77,7 @@ fields(
              "toprocessid" type str,
              "jxlocked" type str
        )
-RECORD DELIMITER "LF"
+RECORD DELIMITER "CRLF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
             
@@ -90,10 +90,4 @@ CREATE TABLE t_zy_jg_process using T_ZY_JG_PROCESS_parser;
 create statistics model T_ZY_JG_PROCESS_model on table t_zy_jg_process
 measures (count(deptid));
 
-dataset file T_ZY_JG_PROCESS_dataset
-(
- schema:T_ZY_JG_PROCESS_schema,
- filename: "/home/bryant/Conf/classA/jinshang-82/Data/T_ZY_JG_PROCESS.txt",
- serverid:0,
- splitter:(block_size: 10000000)
-);
+
