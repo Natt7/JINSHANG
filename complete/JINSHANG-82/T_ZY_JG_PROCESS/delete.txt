@@ -8,7 +8,7 @@ dataproc select T_ZY_JG_PROCESS_select
         inputs:"T_ZY_JG_PROCESS_dataset",
 		distinct:true,
         cache:true,
-		opr:del
+		data_opr:delete
 );
 
 dataproc match T_ZY_JG_PROCESS_match
