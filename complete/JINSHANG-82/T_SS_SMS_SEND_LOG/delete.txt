@@ -8,7 +8,7 @@ dataproc select T_SS_SMS_SEND_LOG_select
         inputs:"T_SS_SMS_SEND_LOG_dataset",
 		distinct:true,
         cache:true,
-		opr:del
+		data_opr:delete
 );
 
 dataproc match T_SS_SMS_SEND_LOG_match
