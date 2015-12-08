@@ -1,0 +1,59 @@
+t_ss_sms_send_log_insert_q1=
+begin
+dataproc select T_SS_SMS_SEND_LOG_select
+(
+        fields:(
+                 (fname:"destination_mobile",type:"string")
+               ),
+        inputs:"T_SS_SMS_SEND_LOG_dataset",
+		distinct:true,
+        cache:true
+);
+dataproc distinct T_SS_SMS_SEND_LOG_dis
+(
+	left_fields:("destination_mobile"),
+	right_fields:("destination_mobile"),
+	inputs:
+	(
+		left_input:"T_SS_SMS_SEND_LOG_select",
+		right_input:"T_SS_SMS_SEND_LOG_select.output.cache"
+	),
+	leftadd:"true",
+	rightadd:"false"
+);
+dataproc statistics T_SS_SMS_SEND_LOG_statistics
+(
+ stat_model:T_SS_SMS_SEND_LOG_model,
+ table : t_ss_sms_send_log,
+ inputs :T_SS_SMS_SEND_LOG_dis
+);end
+
+t_ss_sms_send_log_delete_q1=
+begin
+dataproc select T_SS_SMS_SEND_LOG_select
+(
+        fields:(
+                 (fname:"destination_mobile",type:"string")
+               ),
+        inputs:"T_SS_SMS_SEND_LOG_dataset",
+		distinct:true,
+        cache:true,
+		data_opr:delete
+);
+dataproc match T_SS_SMS_SEND_LOG_match
+(
+	left_fields:("destination_mobile"),
+	right_fields:("destination_mobile"),
+	inputs:
+	(
+		left_input:"T_SS_SMS_SEND_LOG_select",
+		right_input:"T_SS_SMS_SEND_LOG_select.output.cache"
+	)
+);
+dataproc statistics T_SS_SMS_SEND_LOG_statistics
+(
+ stat_model:T_SS_SMS_SEND_LOG_model,
+ table : t_ss_sms_send_log,
+ inputs :T_SS_SMS_SEND_LOG_match,
+ data_opr:delete
+);end
