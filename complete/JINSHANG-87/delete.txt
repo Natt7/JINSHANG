@@ -9,7 +9,7 @@ dataproc select T_select
                         ),
         inputs:"T_dataset",
         cache:true,
-		opr:del
+		data_opr:delete
 );
 dataproc statistics T_GU_GUB_dataproc1
 (
