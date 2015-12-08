@@ -8,7 +8,7 @@ dataproc select T_GG_SJ_CUSTOMER_select
         inputs:"T_GG_SJ_CUSTOMER_dataset",
 		distinct:true,
         cache:true,
-		opr:del
+		data_opr:delete
 );
 
 dataproc match T_GG_SJ_CUSTOMER_match
