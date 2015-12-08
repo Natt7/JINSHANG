@@ -1,0 +1,39 @@
+t_zy_gh_changeownerlist_insert_q1= 
+begin
+dataproc select T_select
+(
+        fields:(
+                 (fname:"r_record_create_date",type:"datetime"),
+                 (fname:"netweightsum",type:"double"),
+                 (fname:"jyzxcheckflag",type:"double")
+                        ),
+        inputs:"T_dataset",
+        cache:true
+);
+ dataproc statistics T_ZY_GH_CHANGEOWNERLIST_dataproc
+(
+  stat_model:T_ZY_GH_CHANGEOWNERLIST_model,
+  table:T_ZY_GH_CHANGEOWNERLIST,
+  inputs:T_dataset
+);end
+
+t_zy_gh_changeownerlist_delete_q1=
+begin
+dataproc select T_select
+(
+        fields:(
+                 (fname:"r_record_create_date",type:"datetime"),
+                 (fname:"netweightsum",type:"double"),
+                 (fname:"jyzxcheckflag",type:"double")
+                        ),
+        inputs:"T_dataset",
+        cache:true,
+        data_opr:delete
+);
+ dataproc statistics T_ZY_GH_CHANGEOWNERLIST_dataproc
+(
+  stat_model:T_ZY_GH_CHANGEOWNERLIST_model,
+  table:T_ZY_GH_CHANGEOWNERLIST,
+  inputs:T_dataset,
+ data_opr:delete
+);end
