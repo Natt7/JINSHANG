@@ -10,7 +10,7 @@ dataproc select t_tm_check_goods_log_select
 	 ),
  inputs:"t_tm_check_goods_log_dataset",
  cache:true,
- opr:del
+ data_opr:delete
 );
 
 dataproc statistics t_tm_check_goods_log_statistics
