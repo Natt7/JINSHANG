@@ -1,0 +1,39 @@
+t_gu_gub_insert_q1= 
+begin
+dataproc select T_select
+(
+        fields:(
+                 (fname:"weightsum",type:"double"),
+                 (fname:"r_record_create_date",type:"datetime"),
+                 (fname:"releaseweight",type:"double")               
+                        ),
+        inputs:"T_dataset",
+        cache:true
+);
+ dataproc statistics T_GU_GUB_dataproc1
+(
+  stat_model:T_GU_GUB_model1,
+  table:T_GU_GUB,
+  inputs:T_dataset
+);end
+
+t_gu_gub_delete_q1= 
+begin
+dataproc select T_select
+(
+        fields:(
+                 (fname:"weightsum",type:"double"),
+                 (fname:"r_record_create_date",type:"datetime"),
+                 (fname:"releaseweight",type:"double")               
+                        ),
+        inputs:"T_dataset",
+        cache:true,
+		data_opr:delete
+);
+dataproc statistics T_GU_GUB_dataproc1
+(
+  stat_model:T_GU_GUB_model1,
+  table:T_GU_GUB,
+  inputs:T_dataset,
+  data_opr:delete
+);end
