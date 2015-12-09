@@ -1,0 +1,46 @@
+t_gg_sj_goods_delete_q1= 
+begin
+dataproc select T_select
+(
+        fields:(
+				(fname:"kindname",type:"str"),
+                (fname:"prodareaname",type:"str"),
+                (fname:"netweight",type:"double"),
+                (fname:"goodsstateno",type:"str"),
+                (fname:"deptid",type:"str")
+                        ),
+        inputs:"T_dataset",
+        cache:true
+);
+
+dataproc statistics T_GG_SJ_GOODS_name
+(
+ stat_model:T_GG_SJ_GOODS_model,
+ table : T_GG_SJ_GOODS,
+ inputs :T_dataset
+);end
+
+
+t_gg_sj_goods_insert_q1=
+begin
+dataproc select T_select
+(
+        fields:(
+                (fname:"kindname",type:"str"),
+                (fname:"prodareaname",type:"str"),
+                (fname:"netweight",type:"double"),
+                (fname:"goodsstateno",type:"str"),
+                (fname:"deptid",type:"str")
+                        ),
+        inputs:"T_dataset",
+        cache:true,
+		data_opr:delete
+);
+
+dataproc statistics T_GG_SJ_GOODS_name
+(
+ stat_model:T_GG_SJ_GOODS_model,
+ table : T_GG_SJ_GOODS,
+ inputs :T_dataset,
+  data_opr:delete
+);end
