@@ -1,0 +1,48 @@
+t_chart_detailstorage_insert_q1= 
+begin
+dataproc select T_select
+(
+        fields:(
+                                (fname:"owner_num",type:"str"),
+                                (fname:"deptid",type:"str"),
+                                (fname:"deptname",type:"str"),
+                                (fname:"sumdate",type:"datetime"),
+                                (fname:"sumcount",type:"double"),
+                                (fname:"sumweight",type:"double")
+                        ),
+        inputs:"T_dataset",
+        cache:true
+);
+
+dataproc statistics T_CHART_DETAILSTORAGE_name
+(
+ stat_model:T_CHART_DETAILSTORAGE_model,
+ table : T_CHART_DETAILSTORAGE,
+ inputs :T_dataset
+);end
+
+
+t_chart_detailstorage_delete_q1= 
+begin
+dataproc select T1_select
+(           
+        fields:(
+                                (fname:"owner_num",type:"str"),
+                                (fname:"deptid",type:"str"),
+                                (fname:"deptname",type:"str"),
+                                (fname:"sumdate",type:"datetime"),
+                                (fname:"sumcount",type:"double"),
+                                (fname:"sumweight",type:"double")
+                        ), 
+        inputs:"T_dataset",
+        cache:true,
+         data_opr:delete
+);  
+    
+dataproc statistics T_CHART_DETAILSTORAGE1_name
+(   
+ stat_model:T_CHART_DETAILSTORAGE_model,
+ table : T_CHART_DETAILSTORAGE,
+ inputs :T_dataset,
+ data_opr:delete
+);end
