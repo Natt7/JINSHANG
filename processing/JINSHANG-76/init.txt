@@ -4,7 +4,7 @@ dataset file t_common_dept_dataset
 (
 	schema:t_common_dept_schema,
 	charset:"UTF8",
-	filename: "/home/zhaoshun/Data/jingshang_data/T_COMMON_DEPT.txt",
+	filename: "/home/natt/jsdata/T_COMMON_DEPT.csv",
 	serverid: "0",
 	splitter: (block_size: 10000000)		  		  
 );
@@ -38,7 +38,7 @@ dataset file T_BM_UI_CONFIGURE_dataset
 (
 	schema:T_BM_UI_CONFIGURE_schema,
 	charset:"UTF8",
-	filename: "/home/zhaoshun/Data/jingshang_data/T_BM_UI_CONFIGURE.txt",
+	filename: "/home/natt/jsdata/T_BM_UI_CONFIGURE.csv",
 	serverid: "0",
 	splitter: (block_size: 10000000)		  		  
 );
@@ -72,7 +72,7 @@ dataset file t_gg_sj_goods_dataset
 (
 	schema:t_gg_sj_goods_schema,
 	charset:"UTF8",
-	filename:"/home/zhaoshun/Data/jingshang_data/T_GG_SJ_GOODS.txt",
+	filename:"/home/natt/jsdata/T_GG_SJ_GOODS.csv",
 	serverid:0,
 	splitter:(block_size: 10000000)		  
 );
