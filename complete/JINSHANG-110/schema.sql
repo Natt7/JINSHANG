@@ -138,7 +138,7 @@ fields(
  "ordergoodsownerid"    		type string,
  "ordergoodsownername"  		type string
 )
-RECORD DELIMITER "CRLF"
+RECORD DELIMITER "LF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
 
@@ -212,7 +212,7 @@ FIELDS(
 "jfsendflag" 					type double,
 "checkdtlcount" 				type double
 )
-SCHEMA DELIMITER "CRLF"
+SCHEMA DELIMITER "LF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
 
@@ -276,7 +276,7 @@ FIELDS(
 "username"                      type string,
 "billlock"                      type string
 	    )
-SCHEMA DELIMITER "CRLF"
+SCHEMA DELIMITER "LF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
 
@@ -362,7 +362,7 @@ FIELDS(
 "toprocessid" 					type string,
 "jxlocked" 						type string
 )
-SCHEMA DELIMITER "CRLF"
+SCHEMA DELIMITER "LF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
 
@@ -380,7 +380,7 @@ fields(
   "store_out_amount"      	type double, 
   "store_process_amount"    type double
   )
-schema delimiter "CRLF"
+schema delimiter "LF"
 field delimiter ","
 text qualifier "DQM";
 
