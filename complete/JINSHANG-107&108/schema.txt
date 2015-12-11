@@ -22,5 +22,5 @@ SCHEMA T_CHART_DETAILSTORAGE_schema;
 CREATE TABLE T_CHART_DETAILSTORAGE using T_CHART_DETAILSTORAGE_parser;
 
 create statistics model T_CHART_DETAILSTORAGE_model on table T_CHART_DETAILSTORAGE
-group by (sumdate,deptid,owner_num)
+group by (owner_num,deptid,sumdate)
 measures (sum(sumweight));
