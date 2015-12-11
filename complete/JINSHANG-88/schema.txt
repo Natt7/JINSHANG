@@ -51,7 +51,7 @@ fields(
  "idcode"               type str,
  "username"             type str
 )
-RECORD DELIMITER "CRLF"
+RECORD DELIMITER "LF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
 
