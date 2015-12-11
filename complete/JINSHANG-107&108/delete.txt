@@ -1,16 +1,23 @@
 create job delete_job(T_CHART_DETAILSTORAGE)
 begin
-dataproc select T_select
+
+dataset file T_CHART_DETAILSTORAGE_22
+(
+	schema: T_CHART_DETAILSTORAGE_schema,
+    filename: "/home/zhaoshun/jinshang110/del/T_CHART_DETAILSTORAGE_del.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
+
+dataproc select T_select1
 (           
         fields:(
                                 (fname:"owner_num",type:"str"),
                                 (fname:"deptid",type:"str"),
-                                (fname:"deptname",type:"str"),
                                 (fname:"sumdate",type:"datetime"),
-                                (fname:"sumcount",type:"double"),
                                 (fname:"sumweight",type:"double")
                         ), 
-        inputs:"T_dataset",
+        inputs:"T_CHART_DETAILSTORAGE_22",
         cache:true,
         data_opr:delete
 );  
@@ -19,7 +26,7 @@ dataproc statistics T_CHART_DETAILSTORAGE_name
 (   
  stat_model:T_CHART_DETAILSTORAGE_model,
  table : T_CHART_DETAILSTORAGE,
- inputs :T_dataset,
+ inputs :T_select1,
  data_opr:delete
 );
 end;
