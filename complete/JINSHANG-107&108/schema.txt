@@ -11,7 +11,7 @@ fields(
                 "sumcount"  type double,
                 "sumweight" type double
           )
-RECORD DELIMITER "CRLF"
+RECORD DELIMITER "LF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
             
