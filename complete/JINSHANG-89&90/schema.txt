@@ -138,7 +138,7 @@ fields(
  "ordergoodsownerid"    type str,
  "ordergoodsownername"  type str
 )
-RECORD DELIMITER "CRLF"
+RECORD DELIMITER "LF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
             
