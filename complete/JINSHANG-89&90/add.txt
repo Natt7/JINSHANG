@@ -16,7 +16,7 @@ dataproc select T_select
                 (fname:"goodsstateno",type:"str"),
                 (fname:"deptid",type:"str")
                         ),
-        inputs:"T_dataset",
+        inputs:"T_GG_SJ_GOODS_dataset_11",
         cache:true
 );
 
@@ -24,7 +24,7 @@ dataproc statistics T_GG_SJ_GOODS_name
 (
  stat_model:T_GG_SJ_GOODS_model,
  table : T_GG_SJ_GOODS,
- inputs :T_dataset
+ inputs :T_select
 );
 end;
 
