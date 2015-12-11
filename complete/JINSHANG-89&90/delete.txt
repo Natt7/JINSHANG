@@ -7,7 +7,7 @@ dataset file T_GG_SJ_GOODS_dataset_22
 	serverid: 0,
 	splitter: (block_size: 10000000)
 );
-dataproc select T_select
+dataproc select T_select1
 (
         fields:(
                 (fname:"kindname",type:"str"),
@@ -16,7 +16,7 @@ dataproc select T_select
                 (fname:"goodsstateno",type:"str"),
                 (fname:"deptid",type:"str")
                         ),
-        inputs:"T_dataset",
+        inputs:"T_GG_SJ_GOODS_dataset_22",
         cache:true,
 		data_opr:delete
 );
@@ -25,7 +25,7 @@ dataproc statistics T_GG_SJ_GOODS_name
 (
  stat_model:T_GG_SJ_GOODS_model,
  table : T_GG_SJ_GOODS,
- inputs :T_dataset,
+ inputs :T_select1,
   data_opr:delete
 );
 end;
