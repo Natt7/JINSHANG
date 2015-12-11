@@ -1,5 +1,12 @@
 create job delete_job1(T_GG_SJ_GOODS)
 begin
+dataset file T_GG_SJ_GOODS_dataset_22
+(
+	schema: T_GG_SJ_GOODS_schema,
+    filename: "/home/zhaoshun/jinshang110/del/T_GG_SJ_GOODS_del.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
 dataproc select T_select
 (
         fields:(
