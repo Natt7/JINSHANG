@@ -1,4 +1,4 @@
-t_gg_sj_goods_delete_q1= 
+t_gg_sj_goods_insert_q1= 
 begin
 dataset file T_GG_SJ_GOODS_dataset_11
 (
@@ -27,8 +27,7 @@ dataproc statistics T_GG_SJ_GOODS_name
  inputs :T_dataset
 );end
 
-
-t_gg_sj_goods_insert_q1=
+t_gg_sj_goods_delete_q1=
 begin
 dataset file T_GG_SJ_GOODS_dataset_22
 (
