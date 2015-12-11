@@ -7,7 +7,7 @@ fields(
                 "owner_num" type str,
                 "deptid"    type str,
                 "deptname"  type str,
-                "sumdate"   type datetime format '%Y%m%d',
+                "sumdate"   type datetime,
                 "sumcount"  type double,
                 "sumweight" type double
           )
