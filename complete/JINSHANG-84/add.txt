@@ -4,9 +4,7 @@ dataproc select t_tm_check_goods_log_select
 (
         fields:(
                   (fname:"lock_flag",type:"str"),
-                  (fname:"net_weight",type:"str"),
-                  (fname:"sys_id",type:"str"),
-                  (fname:"create_date",type:"str")
+                  (fname:"net_weight",type:"double")
                ),
         inputs:"t_tm_check_goods_log_dataset",
         cache:true
