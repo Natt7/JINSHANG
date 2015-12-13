@@ -1,5 +1,12 @@
 create job t_tm_check_goods_log_job(t_tm_check_goods_log)
 begin
+dataset file t_tm_check_goods_log_dataset_11
+(
+	schema: t_tm_check_goods_log_schema,
+    filename: "/home/zhaoshun/jinshang110/add/T_TM_CHECK_GOODS_LOG_add.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
 dataproc select t_tm_check_goods_log_select
 (
         fields:(
