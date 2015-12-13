@@ -53,7 +53,7 @@ fields(
           )
 record delimiter "LF"
 field delimiter ","
-text qualifier "NULL";
+text qualifier "DQM";
             
 create parser t_tm_check_goods_log_parser
 type rcd    
