@@ -1,24 +1,38 @@
 t_gu_gub_insert_q1= 
 begin
-dataproc select T_select
+dataset file T_GG_SJ_GOODS_dataset_11
+(
+	schema: T_GG_SJ_GOODS_schema,
+    filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_gu_gub/insert/insert.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
+dataproc select T1_select
 (
         fields:(
                  (fname:"weightsum",type:"double"),
                  (fname:"r_record_create_date",type:"datetime"),
                  (fname:"releaseweight",type:"double")               
                         ),
-        inputs:"T_dataset",
+        inputs:"T_GG_SJ_GOODS_dataset_11",
         cache:true
 );
  dataproc statistics T_GU_GUB_dataproc1
 (
   stat_model:T_GU_GUB_model1,
   table:T_GU_GUB,
-  inputs:T_dataset
+  inputs:T1_select
 );end
 
 t_gu_gub_delete_q1= 
 begin
+dataset file T_GG_SJ_GOODS_dataset_22
+(
+	schema: T_GG_SJ_GOODS_schema,
+    filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_gu_gub/delete/delete.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
 dataproc select T_select
 (
         fields:(
@@ -26,7 +40,7 @@ dataproc select T_select
                  (fname:"r_record_create_date",type:"datetime"),
                  (fname:"releaseweight",type:"double")               
                         ),
-        inputs:"T_dataset",
+        inputs:"T_GG_SJ_GOODS_dataset_22",
         cache:true,
 		data_opr:delete
 );
@@ -34,6 +48,6 @@ dataproc statistics T_GU_GUB_dataproc1
 (
   stat_model:T_GU_GUB_model1,
   table:T_GU_GUB,
-  inputs:T_dataset,
+  inputs:T_select,
   data_opr:delete
 );end
