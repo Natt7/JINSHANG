@@ -2,7 +2,7 @@ t_gu_gub_insert_q1=
 begin
 dataset file T_GG_SJ_GOODS_dataset_11
 (
-	schema: T_GG_SJ_GOODS_schema,
+	schema: T_GU_GUB_schema,
     filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_gu_gub/insert/insert.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
@@ -28,7 +28,7 @@ t_gu_gub_delete_q1=
 begin
 dataset file T_GG_SJ_GOODS_dataset_22
 (
-	schema: T_GG_SJ_GOODS_schema,
+	schema: T_GU_GUB_schema,
     filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_gu_gub/delete/delete.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
