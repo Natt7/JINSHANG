@@ -1,20 +1,27 @@
 create job add_job(T_ZY_GH_CHANGEOWNERLIST)
 begin
-dataproc select T_select
+dataset file T_ZY_GH_CHANGEOWNERLIST_11dataset
+(
+	schema: T_ZY_GH_CHANGEOWNERLIST_schema,
+    filename: "/home/zhaoshun/jinshang110/add/T_ZY_GH_CHANGEOWNERLIST_add.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
+dataproc select T1_select
 (
         fields:(
                  (fname:"r_record_create_date",type:"datetime"),
                  (fname:"netweightsum",type:"double"),
                  (fname:"jyzxcheckflag",type:"double")
                         ),
-        inputs:"T_dataset",
+        inputs:"T_ZY_GH_CHANGEOWNERLIST_11dataset",
         cache:true
 );
  dataproc statistics T_ZY_GH_CHANGEOWNERLIST_dataproc
 (
   stat_model:T_ZY_GH_CHANGEOWNERLIST_model,
   table:T_ZY_GH_CHANGEOWNERLIST,
-  inputs:T_dataset
+  inputs:T1_select
 );
 end;
 run job add_job (threads:1);
