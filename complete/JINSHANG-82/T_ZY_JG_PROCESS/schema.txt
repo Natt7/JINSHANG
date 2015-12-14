@@ -77,7 +77,7 @@ fields(
              "toprocessid" type str,
              "jxlocked" type str
        )
-RECORD DELIMITER "CRLF"
+RECORD DELIMITER "LF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
             
