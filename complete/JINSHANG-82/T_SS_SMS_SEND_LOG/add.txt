@@ -2,7 +2,7 @@ create job T_SS_SMS_SEND_LOG_add_job(T_SS_SMS_SEND_LOG)
 begin
 dataset file T_SS_SMS_SEND_LOG_dataset_11
 (
-	schema: T_GG_SJ_GOODS_schema,
+	schema: T_SS_SMS_SEND_LOG_schema,
     filename: "/home/zhaoshun/jinshang110/add/T_SS_SMS_SEND_LOG_add.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
