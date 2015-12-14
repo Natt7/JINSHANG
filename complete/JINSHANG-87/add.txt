@@ -1,20 +1,27 @@
 create job add_job(T_GU_GUB)
 begin
-dataproc select T_select
+dataset file T_GU_GUB_dataset_11
+(
+	schema: T_GU_GUB_schema,
+    filename: "/home/zhaoshun/jinshang110/add/T_GU_GUB_add.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
+dataproc select T1_select
 (
         fields:(
                  (fname:"weightsum",type:"double"),
                  (fname:"r_record_create_date",type:"datetime"),
                  (fname:"releaseweight",type:"double")               
                         ),
-        inputs:"T_dataset",
+        inputs:"T_GU_GUB_dataset_11",
         cache:true
 );
  dataproc statistics T_GU_GUB_dataproc1
 (
   stat_model:T_GU_GUB_model1,
   table:T_GU_GUB,
-  inputs:T_dataset
+  inputs:T1_select
 );
 end;
 run job add_job (threads:1);
