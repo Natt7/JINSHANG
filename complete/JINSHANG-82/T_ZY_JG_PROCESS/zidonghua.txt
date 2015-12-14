@@ -1,59 +1,53 @@
 t_zy_jg_process_insert_q1=
 begin
+dataset file T_ZY_JG_PROCESS_dataset_11
+(
+	schema: T_ZY_JG_PROCESS_schema,
+	filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_zy_jg_process/insert/insert.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
 dataproc select T_ZY_JG_PROCESS_select
 (
         fields:(
                  (fname:"deptid",type:"string")
                ),
-        inputs:"T_ZY_JG_PROCESS_dataset",
+        inputs:"T_ZY_JG_PROCESS_dataset_11",
 		distinct:true,
         cache:true
 );
-dataproc distinct T_ZY_JG_PROCESS_dis
-(
-	left_fields:("deptid"),
-	right_fields:("deptid"),
-	inputs:
-	(
-		left_input:"T_ZY_JG_PROCESS_select",
-		right_input:"T_ZY_JG_PROCESS_select.output.cache"
-	),
-	leftadd:"true",
-	rightadd:"false"
-);
+
 dataproc statistics T_ZY_JG_PROCESS_statistics
 (
  stat_model:T_ZY_JG_PROCESS_model,
  table : t_zy_jg_process,
- inputs :T_ZY_JG_PROCESS_dis
+ inputs :T_ZY_JG_PROCESS_select
 );end
 
 t_zy_jg_process_delete_q1=
 begin
-dataproc select T_ZY_JG_PROCESS_select
+dataset file T_ZY_JG_PROCESS_dataset_22
+(
+	schema: T_ZY_JG_PROCESS_schema,
+	filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_zy_jg_process/delete/delete.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
+dataproc select T_ZY_JG_PROCESS1_select
 (
         fields:(
                  (fname:"deptid",type:"string")
                ),
-        inputs:"T_ZY_JG_PROCESS_dataset",
+        inputs:"T_ZY_JG_PROCESS_dataset_22",
 		distinct:true,
         cache:true,
 		data_opr:delete
 );
-dataproc match T_ZY_JG_PROCESS_match
-(
-	left_fields:("deptid"),
-	right_fields:("deptid"),
-	inputs:
-	(
-		left_input:"T_ZY_JG_PROCESS_select",
-		right_input:"T_ZY_JG_PROCESS_select.output.cache"
-	)
-);
+
 dataproc statistics T_ZY_JG_PROCESS_statistics
 (
  stat_model:T_ZY_JG_PROCESS_model,
  table : t_zy_jg_process,
- inputs :T_ZY_JG_PROCESS_match,
+ inputs :T_ZY_JG_PROCESS1_select,
  data_opr:delete
 );end
