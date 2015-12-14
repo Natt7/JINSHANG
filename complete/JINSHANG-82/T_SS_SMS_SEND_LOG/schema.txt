@@ -23,7 +23,7 @@ fields(
         "module_code" 			type string,
         "deptid" 				type string
       )
-RECORD DELIMITER "CRLF"
+RECORD DELIMITER "LF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
             
@@ -34,5 +34,6 @@ SCHEMA T_SS_SMS_SEND_LOG_schema;
 CREATE TABLE t_ss_sms_send_log using T_SS_SMS_SEND_LOG_parser;
 
 create statistics model T_SS_SMS_SEND_LOG_model on table t_ss_sms_send_log
-measures (count(destination_mobile));
+group by (destination_mobile)
+measures (count(DISTINCT destination_mobile));
 
