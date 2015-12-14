@@ -1,32 +1,28 @@
 create job T_ZY_JG_PROCESS_delete_job(T_ZY_JG_PROCESS)
 begin
-dataproc select T_ZY_JG_PROCESS_select
+dataset file T_ZY_JG_PROCESS_dataset_22
+(
+	schema: T_ZY_JG_PROCESS_schema,
+	filename: "/home/zhaoshun/jinshang110/del/T_ZY_JG_PROCESS_del.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
+dataproc select T_ZY_JG_PROCESS1_select
 (
         fields:(
                  (fname:"deptid",type:"string")
                ),
-        inputs:"T_ZY_JG_PROCESS_dataset",
+        inputs:"T_ZY_JG_PROCESS_dataset_22",
 		distinct:true,
         cache:true,
 		data_opr:delete
-);
-
-dataproc match T_ZY_JG_PROCESS_match
-(
-	left_fields:("deptid"),
-	right_fields:("deptid"),
-	inputs:
-	(
-		left_input:"T_ZY_JG_PROCESS_select",
-		right_input:"T_ZY_JG_PROCESS_select.output.cache"
-	)
 );
 
 dataproc statistics T_ZY_JG_PROCESS_statistics
 (
  stat_model:T_ZY_JG_PROCESS_model,
  table : t_zy_jg_process,
- inputs :T_ZY_JG_PROCESS_match,
+ inputs :T_ZY_JG_PROCESS1_select,
  data_opr:delete
 );
 end;
