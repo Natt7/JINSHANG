@@ -1,33 +1,27 @@
 create job T_SS_SMS_SEND_LOG_add_job(T_SS_SMS_SEND_LOG)
 begin
-dataproc select T_SS_SMS_SEND_LOG_select
+dataset file T_SS_SMS_SEND_LOG_dataset_11
+(
+	schema: T_GG_SJ_GOODS_schema,
+    filename: "/home/zhaoshun/jinshang110/add/T_SS_SMS_SEND_LOG_add.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
+dataproc select T_SS_SMS_SEND_LOG1_select
 (
         fields:(
                  (fname:"destination_mobile",type:"string")
                ),
-        inputs:"T_SS_SMS_SEND_LOG_dataset",
+        inputs:"T_SS_SMS_SEND_LOG_dataset_11",
 		distinct:true,
         cache:true
-);
-
-dataproc distinct T_SS_SMS_SEND_LOG_dis
-(
-	left_fields:("destination_mobile"),
-	right_fields:("destination_mobile"),
-	inputs:
-	(
-		left_input:"T_SS_SMS_SEND_LOG_select",
-		right_input:"T_SS_SMS_SEND_LOG_select.output.cache"
-	),
-	leftadd:"true",
-	rightadd:"false"
 );
 
 dataproc statistics T_SS_SMS_SEND_LOG_statistics
 (
  stat_model:T_SS_SMS_SEND_LOG_model,
  table : t_ss_sms_send_log,
- inputs :T_SS_SMS_SEND_LOG_dis
+ inputs :T_SS_SMS_SEND_LOG1_select
 );
 end;
 run job T_SS_SMS_SEND_LOG_add_job (threads:1);
