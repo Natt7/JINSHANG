@@ -1,59 +1,54 @@
 t_ss_sms_send_log_insert_q1=
 begin
-dataproc select T_SS_SMS_SEND_LOG_select
+dataset file T_SS_SMS_SEND_LOG_dataset_11
+(
+	schema: T_SS_SMS_SEND_LOG_schema,
+    filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_ss_sms_send_log/insert/insert.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
+dataproc select T_SS_SMS_SEND_LOG1_select
 (
         fields:(
                  (fname:"destination_mobile",type:"string")
                ),
-        inputs:"T_SS_SMS_SEND_LOG_dataset",
+        inputs:"T_SS_SMS_SEND_LOG_dataset_11",
 		distinct:true,
         cache:true
 );
-dataproc distinct T_SS_SMS_SEND_LOG_dis
-(
-	left_fields:("destination_mobile"),
-	right_fields:("destination_mobile"),
-	inputs:
-	(
-		left_input:"T_SS_SMS_SEND_LOG_select",
-		right_input:"T_SS_SMS_SEND_LOG_select.output.cache"
-	),
-	leftadd:"true",
-	rightadd:"false"
-);
+
 dataproc statistics T_SS_SMS_SEND_LOG_statistics
 (
  stat_model:T_SS_SMS_SEND_LOG_model,
  table : t_ss_sms_send_log,
- inputs :T_SS_SMS_SEND_LOG_dis
-);end
+ inputs :T_SS_SMS_SEND_LOG1_select
+);
+end
 
 t_ss_sms_send_log_delete_q1=
 begin
+dataset file T_SS_SMS_SEND_LOG_dataset_22
+(
+	schema: T_SS_SMS_SEND_LOG_schema,
+    filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_ss_sms_send_log/delete/delete.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
 dataproc select T_SS_SMS_SEND_LOG_select
 (
         fields:(
                  (fname:"destination_mobile",type:"string")
                ),
-        inputs:"T_SS_SMS_SEND_LOG_dataset",
+        inputs:"T_SS_SMS_SEND_LOG_dataset_22",
 		distinct:true,
         cache:true,
 		data_opr:delete
 );
-dataproc match T_SS_SMS_SEND_LOG_match
-(
-	left_fields:("destination_mobile"),
-	right_fields:("destination_mobile"),
-	inputs:
-	(
-		left_input:"T_SS_SMS_SEND_LOG_select",
-		right_input:"T_SS_SMS_SEND_LOG_select.output.cache"
-	)
-);
 dataproc statistics T_SS_SMS_SEND_LOG_statistics
 (
  stat_model:T_SS_SMS_SEND_LOG_model,
  table : t_ss_sms_send_log,
- inputs :T_SS_SMS_SEND_LOG_match,
+ inputs :T_SS_SMS_SEND_LOG_select,
  data_opr:delete
-);end
+);
+end
