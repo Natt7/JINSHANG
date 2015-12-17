@@ -1,33 +1,27 @@
 create job T_GG_SJ_PRODUCTTYPE_add_job(T_GG_SJ_PRODUCTTYPE)
 begin
+dataset file T_GG_SJ_PRODUCTTYPE_dataset_11
+(
+	schema: T_GG_SJ_PRODUCTTYPE_schema,
+    filename: "/home/zhaoshun/jinshang110/add/T_GG_SJ_PRODUCTTYPE_add.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
 dataproc select T_GG_SJ_PRODUCTTYPE_select
 (
         fields:(
                  (fname:"kindname",type:"string")
                ),
-        inputs:"T_GG_SJ_PRODUCTTYPE_dataset",
+        inputs:"T_GG_SJ_PRODUCTTYPE_dataset_11",
 		distinct:true,
         cache:true
-);
-
-dataproc distinct T_GG_SJ_PRODUCTTYPE_dis 
-(
-	left_fields:("kindname"),
-	right_fields:("kindname"),
-	inputs:
-	(
-		left_input:"T_GG_SJ_PRODUCTTYPE_select",
-		right_input:"T_GG_SJ_PRODUCTTYPE_select.output.cache"
-	),
-	leftadd:"true",
-	rightadd:"false"
 );
 
 dataproc statistics T_GG_SJ_PRODUCTTYPE_statistics
 (
  stat_model:T_GG_SJ_PRODUCTTYPE_model,
  table : t_gg_sj_producttype,
- inputs :T_GG_SJ_PRODUCTTYPE_dis
+ inputs :T_GG_SJ_PRODUCTTYPE_select
 );
 end;
 run job T_GG_SJ_PRODUCTTYPE_add_job (threads:1);
