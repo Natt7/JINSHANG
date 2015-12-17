@@ -1,59 +1,55 @@
 t_gg_sj_producttype_insert_q1=
 begin
+dataset file T_GG_SJ_PRODUCTTYPE_dataset_11
+(
+	schema: T_GG_SJ_PRODUCTTYPE_schema,
+    filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_ss_sms_send_log/insert/insert.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
 dataproc select T_GG_SJ_PRODUCTTYPE_select
 (
         fields:(
                  (fname:"kindname",type:"string")
                ),
-        inputs:"T_GG_SJ_PRODUCTTYPE_dataset",
+        inputs:"T_GG_SJ_PRODUCTTYPE_dataset_11",
 		distinct:true,
         cache:true
 );
-dataproc distinct T_GG_SJ_PRODUCTTYPE_dis 
-(
-	left_fields:("kindname"),
-	right_fields:("kindname"),
-	inputs:
-	(
-		left_input:"T_GG_SJ_PRODUCTTYPE_select",
-		right_input:"T_GG_SJ_PRODUCTTYPE_select.output.cache"
-	),
-	leftadd:"true",
-	rightadd:"false"
-);
+
 dataproc statistics T_GG_SJ_PRODUCTTYPE_statistics
 (
  stat_model:T_GG_SJ_PRODUCTTYPE_model,
  table : t_gg_sj_producttype,
- inputs :T_GG_SJ_PRODUCTTYPE_dis
-);end
+ inputs :T_GG_SJ_PRODUCTTYPE_select
+);
+end
 
 t_gg_sj_producttype_delete_q1=
 begin
-dataproc select T_GG_SJ_PRODUCTTYPE_select
+dataset file T_GG_SJ_PRODUCTTYPE_dataset_22
+(
+	schema: T_GG_SJ_PRODUCTTYPE_schema,
+    filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_ss_sms_send_log/delete/delete.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
+dataproc select T_GG_SJ_PRODUCTTYPE1_select
 (
         fields:(
                  (fname:"kindname",type:"string")
                ),
-        inputs:"T_GG_SJ_PRODUCTTYPE_dataset",
+        inputs:"T_GG_SJ_PRODUCTTYPE_dataset_22",
 		distinct:true,
         cache:true,
 		data_opr:delete
 );
-dataproc match T_GG_SJ_PRODUCTTYPE_match
-(
-	left_fields:("kindname"),
-	right_fields:("kindname"),
-	inputs:
-	(
-		left_input:"T_GG_SJ_PRODUCTTYPE_select",
-		right_input:"T_GG_SJ_PRODUCTTYPE_select.output.cache"
-	)
-);
+
 dataproc statistics T_GG_SJ_PRODUCTTYPE_statistics
 (
  stat_model:T_GG_SJ_PRODUCTTYPE_model,
  table : t_gg_sj_producttype,
- inputs :T_GG_SJ_PRODUCTTYPE_match,
+ inputs :T_GG_SJ_PRODUCTTYPE1_select,
  data_opr:delete
-);end
+);
+end
