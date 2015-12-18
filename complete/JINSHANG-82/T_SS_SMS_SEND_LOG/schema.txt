@@ -35,5 +35,5 @@ CREATE TABLE t_ss_sms_send_log using T_SS_SMS_SEND_LOG_parser;
 
 create statistics model T_SS_SMS_SEND_LOG_model on table t_ss_sms_send_log
 group by (destination_mobile)
-measures (count(DISTINCT destination_mobile));
+measures (dist_count(destination_mobile));
 

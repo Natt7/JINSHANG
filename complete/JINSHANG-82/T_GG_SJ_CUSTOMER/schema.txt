@@ -56,4 +56,5 @@ SCHEMA T_GG_SJ_CUSTOMER_schema;
 create table t_gg_sj_customer using t_gg_sj_customer_parser;
 
 create statistics model t_gg_sj_customer_model on table t_gg_sj_customer
-measures (count(ownername));
+group by (ownername)
+measures (dist_count(ownername));

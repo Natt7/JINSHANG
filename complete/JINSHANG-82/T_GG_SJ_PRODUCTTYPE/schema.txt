@@ -29,7 +29,7 @@ fields(
             "bwlno"                type str,
             "bwlnoparentid"        type str
           )
-RECORD DELIMITER "CRLF"
+RECORD DELIMITER "LF"
 FIELD DELIMITER ","
 TEXT QUALIFIER "DQM";
             
@@ -40,4 +40,5 @@ SCHEMA T_GG_SJ_PRODUCTTYPE_schema;
 CREATE TABLE t_gg_sj_producttype using T_GG_SJ_PRODUCTTYPE_parser;
 
 create statistics model T_GG_SJ_PRODUCTTYPE_model on table t_gg_sj_producttype
-measures (count(kindname));
+group by (kindname)
+measures (dist_count(kindname));

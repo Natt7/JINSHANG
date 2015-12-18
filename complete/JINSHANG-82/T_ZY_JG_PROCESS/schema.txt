@@ -89,6 +89,6 @@ CREATE TABLE t_zy_jg_process using T_ZY_JG_PROCESS_parser;
 
 create statistics model T_ZY_JG_PROCESS_model on table t_zy_jg_process
 group by (deptid)
-measures (count(DISTINCT deptid));
+measures (dist_count(deptid));
 
 

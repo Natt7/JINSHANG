@@ -1,33 +1,27 @@
 create job T_GG_SJ_CUSTOMER_add_job(T_GG_SJ_CUSTOMER)
 begin
-dataproc select T_GG_SJ_CUSTOMER_select
+dataset file T_GG_SJ_CUSTOMER_dataset_11
+(
+	schema: T_GG_SJ_CUSTOMER_schema,
+    filename: "/home/zhaoshun/jinshang110/add/T_GG_SJ_CUSTOMER_add.csv",
+	serverid: 0,
+	splitter: (block_size: 10000000)
+);
+dataproc select T_GG_SJ_CUSTOMER1_select
 (
         fields:(
                  (fname:"ownername",type:"string")
                ),
-        inputs:"T_GG_SJ_CUSTOMER_dataset",
+        inputs:"T_GG_SJ_CUSTOMER_dataset_11",
 		distinct:true,
         cache:true
-);
-
-dataproc distinct T_GG_SJ_CUSTOMER_dis
-(
-	left_fields:("ownername"),
-	right_fields:("ownername"),
-	inputs:
-	(
-		left_input:"T_GG_SJ_CUSTOMER_select",
-		right_input:"T_GG_SJ_CUSTOMER_select.output.cache"
-	),
-	leftadd:"true",
-	rightadd:"false"
 );
 
 dataproc statistics T_GG_SJ_CUSTOMER_statistics
 (
  stat_model:t_gg_sj_customer_model,
  table : t_gg_sj_customer,
- inputs :T_GG_SJ_CUSTOMER_dis
+ inputs :T_GG_SJ_CUSTOMER1_select
 );
 end;
 run job T_GG_SJ_CUSTOMER_add_job (threads:1);
