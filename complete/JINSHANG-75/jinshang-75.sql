@@ -1,0 +1,133 @@
+
+		SELECT
+			NVL (GOODSID, 'null') AS GOODSID,
+			NVL (DEPTID, 'null') AS DEPTID,
+			(
+				SELECT
+					deptname
+				FROM
+					t_common_dept D
+				WHERE
+					D .deptid = G .deptid
+			) AS DEPTNAME,
+			NVL (BARCODE, 'null') AS BARCODE,
+			NVL (GOODSLOCID, 'null') AS GOODSLOCID,
+			NVL (
+				DECODE (
+					STOCKTYPE,
+					'004001',
+					'室内库',
+					'004002',
+					'室外库',
+					NULL,
+					'室内库'
+				),
+				'null'
+			) AS STOCKTYPE,
+			NVL (OWNERID, 'null') AS OWNERID,
+			NVL (OWNERNAME, 'null') AS OWNERNAME,
+			NVL (GOODSOWNERMANAGENO, 'null') AS GOODSOWNERMANAGENO,
+			NVL (INBILLID, 'null') AS INBILLID,
+			NVL (PACKNUM, 'null') AS PACKNUM,
+			NVL (GOODSOWNERPACKNO, 'null') AS GOODSOWNERPACKNO,
+			NVL (MANAGENO, 'null') AS MANAGENO,
+			NVL (
+				TO_CHAR (
+					FEEBEGINDATE,
+					'YYYY-MM-DD hh24:mi:ss'
+				),
+				'null'
+			) AS FEEBEGINDATE,
+			NVL (CONTRACTID, 'null') AS CONTRACTID,
+			NVL (GOODSSTATENO, 'null') AS GOODSSTATENO,
+			NVL (GOODSSTATENAME, 'null') AS GOODSSTATENAME,
+			NVL (
+				TO_CHAR (CHANGEOWNERTIMES),
+				'null'
+			) AS CHANGEOWNERTIMES,
+			NVL (GOODSTYPE, 'null') AS GOODSTYPE,
+			NVL (GOODSTYPENAME, 'null') AS GOODSTYPENAME,
+			NVL (KINDNO, 'null') AS KINDNO,
+			NVL (KINDNAME, 'null') AS KINDNAME,
+			NVL (SHOPSIGNID, 'null') AS SHOPSIGNID,
+			NVL (SHOPSIGNNAME, 'null') AS SHOPSIGNNAME,
+			NVL (PRODAREAID, 'null') AS PRODAREAID,
+			NVL (PRODAREANAME, 'null') AS PRODAREANAME,
+			NVL (GOODSBATCHNO, 'null') AS GOODSBATCHNO,
+			NVL (PRODSTOVENO, 'null') AS PRODSTOVENO,
+			NVL (GRADENUM, 'null') AS GRADENUM,
+			NVL (GRADENUMTHICK, 0) AS GRADENUMTHICK,
+			NVL (
+				TO_CHAR (GRADENUMWIDTH),
+				'null'
+			) AS GRADENUMWIDTH,
+			NVL (
+				TO_CHAR (GRADENUMLENGTH),
+				'null'
+			) AS GRADENUMLENGTH,
+			NVL (GROSSWEIGHT, 0) AS GROSSWEIGHT,
+			NVL (NETWEIGHT, 0) AS NETWEIGHT,
+			NVL (POUNDWEIGHT, 0) AS POUNDWEIGHT,
+			NVL (CHECKWEIGHT, 0) AS CHECKWEIGHT,
+			NVL (SHEETNUM, 0) AS SHEETNUM,
+			NVL (UNIT, 'null') AS UNIT,
+			NVL (PACKTYPE, 'null') AS PACKTYPE,
+			NVL (STOCKAREAID, 'null') AS STOCKAREAID,
+			NVL (QUALITYMEMO, 'null') AS QUALITYMEMO,
+			NVL (FIRSTINOWNERID, 'null') AS FIRSTINOWNERID,
+			NVL (
+				TO_CHAR (
+					FIRSTINDATE,
+					'YYYY-MM-DD hh24:mi:ss'
+				),
+				'null'
+			) AS FIRSTINDATE,
+			NVL (OUTBILLID, 'null') AS OUTBILLID,
+			NVL (LDGLISTID, 'null') AS LDGLISTID,
+			NVL (MATERIALGOODSID, 'null') AS MATERIALGOODSID,
+			NVL (
+				DECODE (
+					INTYPE,
+					'20',
+					'正常入库',
+					'50',
+					'退货入库',
+					'99',
+					'其它'
+				),
+				'null'
+			) AS INTYPE,
+			NVL (OUTTYPE, 'null') AS OUTTYPE,
+			NVL (TO_CHAR(BILLSTATE), 'null') AS BILLSTATE,
+			NVL (
+				TO_CHAR (
+					OUTBILLTIME,
+					'YYYY-MM-DD hh24:mi:ss'
+				),
+				'null'
+			) AS OUTBILLTIME,
+			NVL (MEMO, 'null') AS MEMO,
+			NVL (SDPRICE, 'null') AS SDPRICE,
+			NVL (SIDEMARK, 'null') AS TRUCKNO,
+			NVL (
+				TO_CHAR (
+					OUTBILLTIME,
+					'YYYY-MM-DD hh24:mi:ss'
+				),
+				'null'
+			) AS OUTCUSTTIME,
+			NVL (
+				TO_CHAR (ROUND(SYSDATE - FIRSTINDATE)),
+				'null'
+			) AS STORAGEDAY,
+			NVL (
+				TO_CHAR (LENGTH_PRODUCT_MAX),
+				'null'
+			) AS LENGTHMAX
+		FROM
+			t_gg_sj_goods G
+		WHERE
+			1 = 1
+		AND GOODSID = 'ww'
+		AND PACKNUM = 'ww'
+		AND deptId = 'ww'
