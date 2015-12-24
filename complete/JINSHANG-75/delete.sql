@@ -1,4 +1,4 @@
-t_common_dept_delete_q1(zykie)
+create job t_common_dept_delete_q1(zykie)
 begin
 dataset file t_common_dept2_dataset
 (
@@ -17,7 +17,7 @@ table:t_common_dept
 end;
 run job t_common_dept_delete_q1(threads:8);
 
-t_gg_sj_goods_delete_q1(zykie)
+create job t_gg_sj_goods_delete_q1(zykie)
 begin
 dataset file t_gg_sj_goods2_dataset
 (
