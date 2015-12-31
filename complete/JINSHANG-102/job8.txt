@@ -1,0 +1,28 @@
+
+create job 8_job(8)
+begin
+
+dataset file T_ZY_GH_CHANGEOWNERDETAIL_dataset
+(
+	schema: T_ZY_GH_CHANGEOWNERDETAIL_schema,
+    filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_GH_CHANGEOWNERDETAIL.csv",
+	serverid: 0,
+	splitter: (block_size: 10000)
+);
+
+dataproc syncher T_ZY_GH_CHANGEOWNERDETAIL_syncher
+(
+    inputs: T_ZY_GH_CHANGEOWNERDETAIL_dataset,
+    database:db,
+    operation:add, 
+    table:T_ZY_GH_CHANGEOWNERDETAIL,
+	stream:true,
+	services : 
+	(
+		(dataprocname : T_ZY_GH_CHANGEOWNERDETAIL_dataset,
+		serviceid: idx_job)
+	)
+);
+end;
+
+run job 8_job (threads:8);
