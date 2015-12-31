@@ -1,3 +1,5 @@
+create database db;
+use db;
 
 create schema T_GG_SJ_GOODS_schema
 source type CSV
