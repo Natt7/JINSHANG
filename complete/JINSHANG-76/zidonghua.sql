@@ -2,7 +2,7 @@ t_common_dept_insert_q1=begin
 dataset file t_common_dept1_dataset
 (
 	schema:T_COMMON_DEPT_schema,
-	filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_common_dept/insert/insert.csv",
+	filename: "/home/natt/syncdata/oraclesyncdata/t_common_dept/insert/insert.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)		  		  
 );
@@ -19,7 +19,7 @@ t_common_dept_delete_q1=begin
 dataset file t_common_dept2_dataset
 (
 	schema:T_COMMON_DEPT_schema,
-	filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_common_dept/delete/delete.csv",
+	filename: "/home/natt/syncdata/oraclesyncdata/t_common_dept/delete/delete.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)		  		  
 );
@@ -38,7 +38,7 @@ t_bm_ui_configure_insert_q1=begin
 dataset file T_BM_UI_CONFIGURE1_dataset
 (
 	schema:T_BM_UI_CONFIGURE_schema,
-	filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_bm_ui_configure/insert/insert.csv",
+	filename: "/home/natt/syncdata/oraclesyncdata/t_bm_ui_configure/insert/insert.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)		  		  
 );
@@ -55,7 +55,7 @@ t_bm_ui_configure_delete_q1=begin
 dataset file T_BM_UI_CONFIGURE2_dataset
 (
 	schema:T_BM_UI_CONFIGURE_schema,
-	filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_bm_ui_configure/delete/delete.csv",
+	filename: "/home/natt/syncdata/oraclesyncdata/t_bm_ui_configure/delete/delete.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)		  		  
 );
@@ -73,7 +73,7 @@ t_gg_sj_goods_insert_q1=begin
 dataset file T_GG_SJ_GOODS1_dataset
 (
 	schema:T_GG_SJ_GOODS_schema,
-	filename:"/home/zhaoshun/syncdata/oraclesyncdata/t_gg_sj_goods/insert/insert.csv",
+	filename:"/home/natt/syncdata/oraclesyncdata/t_gg_sj_goods/insert/insert.csv",
 	serverid:0,
 	splitter:(block_size: 10000000)		  
 );
@@ -137,7 +137,7 @@ t_gg_sj_goods_delete_q1=begin
 dataset file T_GG_SJ_GOODS2_dataset
 (
 	schema:T_GG_SJ_GOODS_schema,
-	filename:"/home/zhaoshun/syncdata/oraclesyncdata/t_gg_sj_goods/delete/delete.csv",
+	filename:"/home/natt/syncdata/oraclesyncdata/t_gg_sj_goods/delete/delete.csv",
 	serverid:0,
 	splitter:(block_size: 10000000)		  
 );

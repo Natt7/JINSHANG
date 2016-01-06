@@ -3,7 +3,7 @@ begin
 dataset file t_common_dept2_dataset
 (
 	schema:T_COMMON_DEPT_schema,
-	filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_common_dept/delete/delete.csv",
+	filename: "/home/natt/syncdata/oraclesyncdata/t_common_dept/delete/delete.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)		  		  
 );
@@ -22,7 +22,7 @@ begin
 dataset file T_BM_UI_CONFIGURE2_dataset
 (
 	schema:T_BM_UI_CONFIGURE_schema,
-	filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_bm_ui_configure/delete/delete.csv",
+	filename: "/home/natt/syncdata/oraclesyncdata/t_bm_ui_configure/delete/delete.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)		  		  
 );
@@ -41,7 +41,7 @@ begin
 dataset file T_GG_SJ_GOODS2_dataset
 (
 	schema:T_GG_SJ_GOODS_schema,
-	filename:"/home/zhaoshun/syncdata/oraclesyncdata/t_gg_sj_goods/delete/delete.csv",
+	filename:"/home/natt/syncdata/oraclesyncdata/t_gg_sj_goods/delete/delete.csv",
 	serverid:0,
 	splitter:(block_size: 10000000)		  
 );
