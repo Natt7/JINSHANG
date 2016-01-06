@@ -3,7 +3,7 @@ begin
 dataset file T_ZY_GH_CHANGEOWNERLIST_11dataset
 (
 	schema: T_ZY_GH_CHANGEOWNERLIST_schema,
-    filename: "/home/zhaoshun/jinshang110/add/T_ZY_GH_CHANGEOWNERLIST_add.csv",
+    filename: "/home/natt/syncdata/oraclesyncdata/t_zy_gh_changeownerlist/insert/insert.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
 );
