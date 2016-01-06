@@ -3,7 +3,7 @@ begin
 dataset file T_GG_SJ_GOODS_dataset_11
 (
 	schema: T_GG_SJ_GOODS_schema,
-    filename: "/home/zhaoshun/jinshang110/add/T_GG_SJ_GOODS_add.csv",
+    filename: "/home/natt/syncdata/oraclesyncdata/t_gg_sj_goods/insert/insert.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
 );
