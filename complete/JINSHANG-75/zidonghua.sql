@@ -2,7 +2,7 @@ t_common_dept_insert_q1=begin
 dataset file t_common_dept1_dataset
 (
 	schema:t_common_dept_schema,
-	filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_common_dept/insert/insert.csv",
+	filename: "/home/natt/syncdata/oraclesyncdata/t_common_dept/insert/insert.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)		  		  
 );
@@ -19,7 +19,7 @@ t_common_dept_delete_q1=begin
 dataset file t_common_dept2_dataset
 (
 	schema:t_common_dept_schema,
-	filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_common_dept/delete/delete.csv",
+	filename: "/home/natt/syncdata/oraclesyncdata/t_common_dept/delete/delete.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)		  		  
 );
@@ -36,7 +36,7 @@ t_gg_sj_goods_insert_q1=begin
 dataset file t_gg_sj_goods1_dataset
 (
 	schema:t_gg_sj_goods_schema,
-	filename:"/home/zhaoshun/syncdata/oraclesyncdata/t_gg_sj_goods/insert/insert.csv",
+	filename:"/home/natt/syncdata/oraclesyncdata/t_gg_sj_goods/insert/insert.csv",
 	serverid: 0,
 	splitter:(block_size: 10000000)		  
 );
@@ -53,7 +53,7 @@ t_gg_sj_goods_delete_q1=begin
 dataset file t_gg_sj_goods2_dataset
 (
 	schema:t_gg_sj_goods_schema,
-	filename:"/home/zhaoshun/syncdata/oraclesyncdata/t_gg_sj_goods/delete/delete.csv",
+	filename:"/home/natt/syncdata/oraclesyncdata/t_gg_sj_goods/delete/delete.csv",
 	serverid: 0,
 	splitter:(block_size: 10000000)		  
 );
