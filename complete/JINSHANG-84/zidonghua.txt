@@ -3,7 +3,7 @@ begin
 dataset file t_tm_check_goods_log_dataset_11
 (
 	schema: t_tm_check_goods_log_schema,
-    filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_tm_check_goods_log/insert/insert.csv",
+    filename: "/home/natt/syncdata/oraclesyncdata/t_tm_check_goods_log/insert/insert.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
 );
@@ -29,7 +29,7 @@ begin
 dataset file t_tm_check_goods_log_dataset_22
 (
 	schema: t_tm_check_goods_log_schema,
-    filename: "/home/zhaoshun/syncdata/oraclesyncdata/t_tm_check_goods_log/delete/delete.csv",
+    filename: "/home/natt/syncdata/oraclesyncdata/t_tm_check_goods_log/delete/delete.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
 );
