@@ -3,7 +3,7 @@ begin
 dataset file T_SS_SMS_SEND_LOG_dataset_11
 (
 	schema: T_SS_SMS_SEND_LOG_schema,
-    filename: "/home/zhaoshun/jinshang110/add/T_SS_SMS_SEND_LOG_add.csv",
+    filename: "/home/natt/syncdata/oraclesyncdata/t_ss_sms_send_log/insert/insert.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
 );

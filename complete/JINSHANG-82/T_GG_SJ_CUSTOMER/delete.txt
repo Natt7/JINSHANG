@@ -3,7 +3,7 @@ begin
 dataset file T_GG_SJ_CUSTOMER_dataset_22
 (
 	schema: T_GG_SJ_PRODUCTTYPE_schema,
-    filename: "/home/zhaoshun/jinshang110/del/T_GG_SJ_CUSTOMER_del.csv",
+    filename: "/home/natt/syncdata/oraclesyncdata/t_gg_sj_customer/delete/delete.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
 );
