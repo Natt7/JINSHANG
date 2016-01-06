@@ -5,7 +5,7 @@ begin
 dataset file T_ZY_GH_CHANGEOWNERDETAIL_dataset
 (
 	schema: T_ZY_GH_CHANGEOWNERDETAIL_schema,
-    filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_GH_CHANGEOWNERDETAIL.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_ZY_GH_CHANGEOWNERDETAIL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );

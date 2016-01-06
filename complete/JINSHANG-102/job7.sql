@@ -4,7 +4,7 @@ begin
 dataset file T_ZY_JG_PROCMATERIALDTL_dataset
 (
 	schema: T_ZY_JG_PROCMATERIALDTL_schema,
-	filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_JG_PROCMATERIALDTL.csv",
+	filename: "/home/natt/Data/jinshang_Data_New/T_ZY_JG_PROCMATERIALDTL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );

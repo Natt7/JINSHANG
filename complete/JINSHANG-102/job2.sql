@@ -4,7 +4,7 @@ begin
 dataset file T_GG_SJ_GOODS_dataset
 (
 	schema: "T_GG_SJ_GOODS_schema",
-    filename: "/home/zhaoshun/Data/jinshang-102/T_GG_SJ_GOODS.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_GG_SJ_GOODS.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );

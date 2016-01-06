@@ -4,7 +4,7 @@ begin
 dataset file T_ZY_RK_INBILLDETAIL_dataset
 (
 	schema: T_ZY_RK_INBILLDETAIL_schema,
-	filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_RK_INBILLDETAIL.csv",
+	filename: "/home/natt/Data/jinshang_Data_New/T_ZY_RK_INBILLDETAIL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );

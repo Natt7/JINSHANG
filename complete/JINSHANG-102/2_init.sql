@@ -3,7 +3,7 @@ begin
 dataset file T_ZY_CK_CLEAR_1_dataset
 (
 	schema: "T_ZY_CK_CLEAR_schema",
-    filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_CK_CLEAR.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_ZY_CK_CLEAR.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -23,7 +23,7 @@ begin
 dataset file T_ZY_JG_PROCESS_1_dataset
 (
 	schema: T_ZY_JG_PROCESS_schema,
-	filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_JG_PROCESS.csv",
+	filename: "/home/natt/Data/jinshang_Data_New/T_ZY_JG_PROCESS.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -44,7 +44,7 @@ begin
 dataset file T_GG_SJ_GOODS_dataset
 (
 	schema: "T_GG_SJ_GOODS_schema",
-    filename: "/home/zhaoshun/Data/jinshang-102/T_GG_SJ_GOODS.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_GG_SJ_GOODS.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -52,7 +52,7 @@ dataset file T_GG_SJ_GOODS_dataset
 dataset file T_ZY_RK_INBILLDETAIL_dataset
 (
 	schema: T_ZY_RK_INBILLDETAIL_schema,
-	filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_RK_INBILLDETAIL.csv",
+	filename: "/home/natt/Data/jinshang_Data_New/T_ZY_RK_INBILLDETAIL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -60,7 +60,7 @@ dataset file T_ZY_RK_INBILLDETAIL_dataset
 dataset file T_ZY_JG_PROCARTICLEDTL_dataset
 (
 	schema: T_ZY_JG_PROCARTICLEDTL_schema,
-    filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_JG_PROCARTICLEDTL.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_ZY_JG_PROCARTICLEDTL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -68,7 +68,7 @@ dataset file T_ZY_JG_PROCARTICLEDTL_dataset
 dataset file T_ZY_GH_CHANGEOWNERLIST_dataset
 (
 	schema: T_ZY_GH_CHANGEOWNERLIST_schema,
-    filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_GH_CHANGEOWNERLIST.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_ZY_GH_CHANGEOWNERLIST.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -76,7 +76,7 @@ dataset file T_ZY_GH_CHANGEOWNERLIST_dataset
 dataset file T_ZY_GH_CHANGEOWNERDETAIL_dataset
 (
 	schema: T_ZY_GH_CHANGEOWNERDETAIL_schema,
-    filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_GH_CHANGEOWNERDETAIL.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_ZY_GH_CHANGEOWNERDETAIL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -84,7 +84,7 @@ dataset file T_ZY_GH_CHANGEOWNERDETAIL_dataset
 dataset file T_ZY_CK_OUTPACK_dataset
 (
 	schema: T_ZY_CK_OUTPACK_schema,
-	filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_CK_OUTPACK.csv",
+	filename: "/home/natt/Data/jinshang_Data_New/T_ZY_CK_OUTPACK.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -92,7 +92,7 @@ dataset file T_ZY_CK_OUTPACK_dataset
 dataset file T_ZY_JG_PROCMATERIALDTL_dataset
 (
 	schema: T_ZY_JG_PROCMATERIALDTL_schema,
-	filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_JG_PROCMATERIALDTL.csv",
+	filename: "/home/natt/Data/jinshang_Data_New/T_ZY_JG_PROCMATERIALDTL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -521,7 +521,7 @@ begin
 dataset file T_GG_SJ_GOODS_del_dataset
 (
 	schema: "T_GG_SJ_GOODS_schema",
-    filename: "/home/zhaoshun/Data/jinshang-102/T_GG_SJ_GOODS.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_GG_SJ_GOODS.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -529,7 +529,7 @@ dataset file T_GG_SJ_GOODS_del_dataset
 dataset file T_ZY_RK_INBILLDETAIL_del_dataset
 (
 	schema: T_ZY_RK_INBILLDETAIL_schema,
-	filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_RK_INBILLDETAIL.csv",
+	filename: "/home/natt/Data/jinshang_Data_New/T_ZY_RK_INBILLDETAIL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -537,7 +537,7 @@ dataset file T_ZY_RK_INBILLDETAIL_del_dataset
 dataset file T_ZY_JG_PROCARTICLEDTL_del_dataset
 (
 	schema: T_ZY_JG_PROCARTICLEDTL_schema,
-    filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_JG_PROCARTICLEDTL.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_ZY_JG_PROCARTICLEDTL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -545,7 +545,7 @@ dataset file T_ZY_JG_PROCARTICLEDTL_del_dataset
 dataset file T_ZY_GH_CHANGEOWNERLIST_del_dataset
 (
 	schema: T_ZY_GH_CHANGEOWNERLIST_schema,
-    filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_GH_CHANGEOWNERLIST.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_ZY_GH_CHANGEOWNERLIST.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -553,7 +553,7 @@ dataset file T_ZY_GH_CHANGEOWNERLIST_del_dataset
 dataset file T_ZY_GH_CHANGEOWNERDETAIL_del_dataset
 (
 	schema: T_ZY_GH_CHANGEOWNERDETAIL_schema,
-    filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_GH_CHANGEOWNERDETAIL.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_ZY_GH_CHANGEOWNERDETAIL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -561,7 +561,7 @@ dataset file T_ZY_GH_CHANGEOWNERDETAIL_del_dataset
 dataset file T_ZY_CK_OUTPACK_del_dataset
 (
 	schema: T_ZY_CK_OUTPACK_schema,
-	filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_CK_OUTPACK.csv",
+	filename: "/home/natt/Data/jinshang_Data_New/T_ZY_CK_OUTPACK.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
@@ -569,7 +569,7 @@ dataset file T_ZY_CK_OUTPACK_del_dataset
 dataset file T_ZY_JG_PROCMATERIALDTL_del_dataset
 (
 	schema: T_ZY_JG_PROCMATERIALDTL_schema,
-	filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_JG_PROCMATERIALDTL.csv",
+	filename: "/home/natt/Data/jinshang_Data_New/T_ZY_JG_PROCMATERIALDTL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );

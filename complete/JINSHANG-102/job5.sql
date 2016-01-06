@@ -4,7 +4,7 @@ begin
 dataset file T_ZY_JG_PROCARTICLEDTL_dataset
 (
 	schema: T_ZY_JG_PROCARTICLEDTL_schema,
-    filename: "/home/zhaoshun/Data/jinshang-102/T_ZY_JG_PROCARTICLEDTL.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_ZY_JG_PROCARTICLEDTL.csv",
 	serverid: 0,
 	splitter: (block_size: 10000)
 );
