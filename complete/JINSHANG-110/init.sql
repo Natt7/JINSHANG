@@ -3,7 +3,7 @@ begin
 dataset file T_GG_SJ_GOODS_dataset
 (
 	schema: T_GG_SJ_GOODS_schema,
-    filename: "/home/natt/jsdata/T_GG_SJ_GOODS.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_GG_SJ_GOODS.csv",
 	serverid: 0,
 	charset:utf-8,
 	splitter: (block_size: 10000000)
@@ -12,7 +12,7 @@ dataset file T_GG_SJ_GOODS_dataset
 dataset file T_ZY_RK_INBILL_dataset
 (
 	schema: T_ZY_RK_INBILL_schema,
-	filename: "/home/natt/jsdata/T_ZY_RK_INBILL.csv",
+	filename: "/home/natt/Data/jinshang_Data_New/T_ZY_RK_INBILL.csv",
 	serverid: 0,
 	charset:utf-8,
 	splitter: (block_size: 10000000)
@@ -21,7 +21,7 @@ dataset file T_ZY_RK_INBILL_dataset
 dataset file T_ZY_CK_OUTBILL_dataset
 (
 	schema: T_ZY_CK_OUTBILL_schema,
-    filename: "/home/natt/jsdata/T_ZY_CK_OUTBILL.csv",
+    filename: "/home/natt/Data/jinshang_Data_New/T_ZY_CK_OUTBILL.csv",
 	serverid: 0,
 	charset:utf-8,
 	splitter: (block_size: 10000000)
@@ -30,7 +30,7 @@ dataset file T_ZY_CK_OUTBILL_dataset
 dataset file T_ZY_JG_PROCESS_dataset
 (
 	schema: T_ZY_JG_PROCESS_schema,
-	filename: "/home/natt/jsdata/T_ZY_JG_PROCESS.csv",
+	filename: "/home/natt/Data/jinshang_Data_New/T_ZY_JG_PROCESS.csv",
 	serverid: 0,
 	charset:utf-8,
 	splitter: (block_size: 10000000)

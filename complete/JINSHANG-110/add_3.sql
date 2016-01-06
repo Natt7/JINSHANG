@@ -4,7 +4,7 @@ begin
 dataset file T_ZY_CK_OUTBILL_dataset_11
 (
 	schema: T_ZY_CK_OUTBILL_schema,
-    filename: "/home/zhaoshun/jinshang110/add/T_ZY_CK_OUTBILL_add.csv",
+    filename: "/home/natt/syncdata/oraclesyncdata/t_zy_ck_outbill/insert/insert.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
 );

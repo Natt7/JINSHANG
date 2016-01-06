@@ -4,7 +4,7 @@ begin
 dataset file T_ZY_RK_INBILL_dataset_22
 (
 	schema: T_ZY_RK_INBILL_schema,
-	filename: "/home/zhaoshun/jinshang110/del/T_ZY_RK_INBILL_del.csv",
+	filename: "/home/natt/syncdata/oraclesyncdata/t_zy_rk_inbill/delete/delete.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
 );

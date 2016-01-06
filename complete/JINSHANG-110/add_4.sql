@@ -4,7 +4,7 @@ begin
 dataset file T_ZY_JG_PROCESS_dataset_11
 (
 	schema: T_ZY_JG_PROCESS_schema,
-	filename: "/home/zhaoshun/jinshang110/add/T_ZY_JG_PROCESS_add.csv",
+	filename: "/home/natt/syncdata/oraclesyncdata/t_zy_jg_process/insert/insert.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
 );

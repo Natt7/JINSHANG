@@ -4,7 +4,7 @@ begin
 dataset file T_GG_SJ_GOODS_dataset_22
 (
 	schema: T_GG_SJ_GOODS_schema,
-    filename: "/home/zhaoshun/jinshang110/del/T_GG_SJ_GOODS_del.csv",
+    filename: "/home/natt/syncdata/oraclesyncdata/t_gg_sj_goods/delete/delete.csv",
 	serverid: 0,
 	splitter: (block_size: 10000000)
 );
